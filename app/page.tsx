@@ -3,6 +3,8 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-<Button className=" bg-primary">Click me</Button>
+    <div className=" h-screen">
+      {/* <Button className=" bg-primary">Click me</Button> */}
+    </div>
   );
 }
