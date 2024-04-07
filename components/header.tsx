@@ -13,6 +13,7 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from "./ui/input"
 import { useForm } from "react-hook-form"
 import { Button } from "./ui/button"
+import { Search } from "lucide-react"
 
 
 function Header() {
@@ -37,8 +38,9 @@ function Header() {
                         </DropdownMenu>
 
                     </div>
-                    <div>
-                        <Input placeholder="O que está procurando? " className=" rounded-full w-96" />
+                    <div className=" hidden sm:flex bg-white rounded-full w-3/12 p-1 items-center justify-between mx-2">
+                        <Input placeholder="O que está procurando?" className="w-10/12 border-gray-200 rounded-full"/>
+                        <Search width={40} />
                     </div>
                     <div className="flex gap-4">
                         <Button className="flex gap-2 bg-[#d26841] hover:bg-[#a5423b] rounded-3xl border-white border-2">
