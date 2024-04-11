@@ -4,8 +4,6 @@ export type PrivacyPolicy = {
     content: string;
 };
 
-
-
 export const PrivacyPolicies: PrivacyPolicy[] = [
     {
         id: 1,

@@ -49,7 +49,7 @@ function Footer() {
             <Image src='/icons/logo/instagram.svg' alt='instagram' width={35} height={35} />
           </div>
 
-          <Image src='/image/google-safe-browsing.svg' alt='qr-code' width={190} height={190} />
+          <Image src='/images/google-safe-browsing.svg' alt='qr-code' width={190} height={190} />
         </div>
       </div>
       <div className={`flex justify-center sm:px-32 px-4 ${isFooterVisible ? '' : 'hidden'}`}>
