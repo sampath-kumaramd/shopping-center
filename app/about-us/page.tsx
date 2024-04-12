@@ -20,11 +20,10 @@ function AboutUsPage() {
             alt: "instagram",
         },
     ]
+
     return (
         <div className=' h-auto lg:mx-32 md:mx-16 mx-8 py-12'>
-
             <Custombreadcrumb title_1="Sobre nós" href_1="/about-us" />
-
             <div className="sm:flex justify-between md:mr-24">
                 <div className="mt-8 space-y-6">
                     <div className="text font-medium">SOBRE NÓS</div>
