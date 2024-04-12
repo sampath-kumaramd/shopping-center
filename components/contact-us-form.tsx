@@ -8,14 +8,14 @@ import { useForm } from "react-hook-form";
 // zod schema for form validation
 const formSchema = z.object({
   firstName: z.string().refine((value) => /^[A-Za-z\s]+$/.test(value), {
-    message: "Fulde navn må kun indeholde bogstaver.",
+    message: "O nome completo deve conter apenas letras.",
   }),
   email: z.string().email({
-    message: "ugyldig emailadresse.",
+    message: "Endereço de email invalido.",
   }),
   subject: z.string(),
   message: z.string().max(250, {
-    message: "Adgangskoden skal være mindre end 150 tegn.",
+    message: "A mensagem deve ter menos de 250 caracteres.",
   }),
 });
 
