@@ -35,12 +35,15 @@ function ContactUsForm() {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      firstName: "",
+      email: "",
+      subject: "",
+      message: "",
     },
     mode: "onChange",
   });
 
-  function onSubmit(values) {
+  function onSubmit(values: any) {
     // console.log(values);
   }
   return (
