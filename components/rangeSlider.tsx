@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Slider from "react-slider";
 
-const MIN = 0;
-const MAX = 12000000;
+const MIN = 2;
+const MAX = 7500;
 
 export default function RangeSlider() {
   const [values, setValues] = useState<number[]>([MIN, MAX]);
@@ -12,7 +12,7 @@ export default function RangeSlider() {
   return (
     <div>
       <Slider
-        className="w-[45rem] max-w-lg bg-slate-500 mt-3"
+        className="w-auto max-w-lg mt-3"
         onChange={(newValues: number[]) => {
           const [newStartValue, newEndValue] = newValues;
           setValues(newValues);
@@ -22,33 +22,39 @@ export default function RangeSlider() {
         value={values}
         min={MIN}
         max={MAX}
-        renderTrack={(props: any, state: any) => (
-          <div
-            {...props}
-            style={{
-              ...props.style,
-              backgroundColor: "#D3DEE8",
-              height: "2px",
-            }}
-          />
-        )}
+        renderTrack={(props: any, state: any) => {
+          const trackStyle = props.className.includes('track-1') ? {backgroundColor: '#C74211'} : {backgroundColor: '#969494'};
+          return (
+            <div
+              {...props}
+              style={{
+                ...props.style,
+                ...trackStyle,
+                height: '6px',
+                borderRadius: '5px',
+              }}
+            />
+          );
+        }}
         renderThumb={(props: any) => (
           <div
             {...props}
             style={{
               ...props.style,
-              top:"-7px",
-              height: "15px",
-              width: "15px",
+              top:"-6px",
+              height: "17px",
+              width: "17px",
               borderRadius:"50%",
-              backgroundColor: "#C4C4C4",
+              backgroundColor: "white",
+              border: "4px solid #E2521A",
+              outline: "none",
             }}
           />
         )}
       />
-      <div className="flex w-full justify-between pt-5 text-gray-400">
-        <p>{startValue} Kr.</p>
-        <p>{endValue} Kr.</p>
+      <div className="flex w-full justify-between pt-5 text-[#514D4D] font-semibold">
+        <p>R$ {startValue}</p>
+        <p>R$ {endValue}</p>
       </div>
     </div>
   );
