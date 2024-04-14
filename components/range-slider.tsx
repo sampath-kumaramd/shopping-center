@@ -8,7 +8,7 @@ export default function RangeSlider() {
   const [values, setValues] = useState<number[]>([MIN, MAX]);
   const [startValue, setStartValue] = useState<number>(MIN);
   const [endValue, setEndValue] = useState<number>(MAX);
-  
+
   return (
     <div>
       <Slider
@@ -22,10 +22,11 @@ export default function RangeSlider() {
         value={values}
         min={MIN}
         max={MAX}
-        renderTrack={(props: any, state: any) => {
-          const trackStyle = props.className.includes('track-1') ? {backgroundColor: '#C74211'} : {backgroundColor: '#969494'};
+        renderTrack={({ key, ...props }: any, state: any) => {
+          const trackStyle = props.className.includes('track-1') ? { backgroundColor: '#C74211' } : { backgroundColor: '#969494' };
           return (
             <div
+              key={key}
               {...props}
               style={{
                 ...props.style,
@@ -36,15 +37,16 @@ export default function RangeSlider() {
             />
           );
         }}
-        renderThumb={(props: any) => (
+        renderThumb={({ key, ...props }: any) => (
           <div
+            key={key}
             {...props}
             style={{
               ...props.style,
-              top:"-6px",
+              top: "-6px",
               height: "17px",
               width: "17px",
-              borderRadius:"50%",
+              borderRadius: "50%",
               backgroundColor: "white",
               border: "4px solid #E2521A",
               outline: "none",

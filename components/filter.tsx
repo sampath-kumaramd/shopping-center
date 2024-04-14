@@ -3,7 +3,7 @@
 import React from "react";
 import { Stores, Store } from "@/bin/stores";
 import { ElectronicItems, Item } from "@/bin/item";
-import RangeSlider from "@/components/rangeSlider";
+import RangeSlider from "@/components/range-slider";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 
@@ -13,7 +13,7 @@ function Filter() {
       <div className="text-2xl font-bold">Filtros</div>
 
       {/* Item list */}
-      <div className="flex flex-col bg-[#FAFAFA] w-[22rem] rounded-lg px-8 py-6 my-4 gap-2">
+      {/* <div className="flex flex-col bg-[#FAFAFA] w-[22rem] rounded-lg px-8 py-6 my-4 gap-2">
         <div className="text-xl font-medium">Itens</div>
         <div>
           {ElectronicItems.map((category: Item) => {
@@ -26,7 +26,7 @@ function Filter() {
             return <ItemComponent key={category.id} />;
           })}
         </div>
-      </div>
+      </div> */}
 
       {/* store list */}
       <div className="flex flex-col bg-[#FAFAFA] w-[22rem] rounded-lg px-8 py-6 my-4 gap-2">
