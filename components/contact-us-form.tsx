@@ -48,9 +48,9 @@ function ContactUsForm() {
   }
   return (
     <>
-      <Form {...form}>
+      <Form {...form} >
         <form onSubmit={form.handleSubmit(onSubmit )} className="space-y-3">
-          <div className="flex justify-between gap-12">
+          <div className="md:flex justify-between gap-12">
             <FormField
               control={form.control}
               name="firstName"
@@ -61,7 +61,7 @@ function ContactUsForm() {
                     <Input
                       placeholder="Seu nome"
                       {...field}
-                      className="w-[20rem] rounded-lg text-[1.2rem] h-[3rem]"
+                      className="lg:w-[20rem] rounded-lg text-[1.2rem] h-[3rem]"
                     />
                   </FormControl>
                   <FormMessage>{error?.message}</FormMessage>
@@ -80,7 +80,7 @@ function ContactUsForm() {
                     <Input
                       placeholder="exemplo@email.com"
                       {...field}
-                      className="w-[20rem] rounded-lg text-[1.2rem] h-[3rem]"
+                      className="lg:w-[20rem] rounded-lg text-[1.2rem] h-[3rem]"
                     />
                   </FormControl>
                   <FormMessage>{error?.message}</FormMessage>

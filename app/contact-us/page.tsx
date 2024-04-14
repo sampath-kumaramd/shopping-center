@@ -34,7 +34,7 @@ function ContactUsPage() {
         </div>
       </div>
 
-      <Separator className="my-8" />
+      <Separator className=" my-12" />
 
       <div className=" flex flex-col justify-center text-center space-y-4">
         <div className=" font-semibold text-3xl mb-3">Perguntas frequentes</div>
@@ -43,7 +43,7 @@ function ContactUsPage() {
           sobre as promoções no Eu Amo Desconto
         </div>
       </div>
-      <div className="grid mx-32 grid-cols-1 lg:grid-cols-2 gap-16 mt-10">
+      <div className="grid lg:mx-32 grid-cols-1 lg:grid-cols-2 gap-16 mt-10 mb-16">
         {CommonQuestions.map((question: CommonQuestion) => {
           const CommonQuestionComponent = () => (
             <div key={question.id} className="flex">
