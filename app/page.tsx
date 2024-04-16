@@ -12,6 +12,11 @@ import { useState } from "react";
 export default function Home() {
 
   const [activeTag, setActiveTag] = useState<string>("Recentes");
+  const [productView, setProductView] = useState<ProductCardShowType>(ProductCardShowType.short);
+
+  const handleProductView = (view: ProductCardShowType) => {
+    setProductView(view);
+  }
 
   const handleTagClick = (tag: string) => {
     setActiveTag(tag);
@@ -65,13 +70,18 @@ export default function Home() {
                   <Image src={activeTag === "Mais curtidas" ? "/icons/tag/heart.svg" : "/icons/tag/heart-black.svg"} alt="Tag Icon" width={25} height={25} />Mais curtidas
                 </Button>
               </div>
-              <div >
-                his
+              <div className=" flex space-x-4 items-center">
+                <Button onClick={() => handleProductView(ProductCardShowType.short)} className={productView === ProductCardShowType.short ? " " : " bg-white"}>
+                  <Image src={productView === ProductCardShowType.short ? "/icons/grid-white.svg" : "/icons/grid.svg"} alt="grid Icon" width={25} height={25} />
+                </Button>
+                <Button onClick={() => handleProductView(ProductCardShowType.long)} className={productView === ProductCardShowType.long ? " " : " bg-white"}>
+                  <Image src={productView === ProductCardShowType.long ? "/icons/list-white.svg" : "/icons/list.svg"} alt="list Icon" width={25} height={25} />
+                </Button>
               </div>
             </CardContent>
           </Card>
-          <div className="grid grid-cols-4 gap-x-6 gap-y-8">
-            {Products.map((product) => (
+          <div className={productView === ProductCardShowType.long ? " space-y-4" : "grid grid-cols-4 gap-x-6 gap-y-8"}>
+            {Products.slice(0, 8).map((product) => (
               <ProductCard
                 key={product.title}
                 tag={product.tag}
@@ -82,10 +92,33 @@ export default function Home() {
                 discountPrice={product.discountPrice}
                 likes={product.likes}
                 addedtime={product.addedTime}
-                showtype={ProductCardShowType.short}
+                showtype={productView}
               />
             ))}
           </div>
+          <Card className=" my-8">
+            <CardContent className="border-dashed  border-2 items-center flex justify-center h-52 p-0">
+              ADS
+            </CardContent>
+          </Card>
+
+          <div className={productView === ProductCardShowType.long ? " space-y-4" : "grid grid-cols-4 gap-x-6 gap-y-8"}>
+            {Products.slice(0, 8).map((product) => (
+              <ProductCard
+                key={product.title}
+                tag={product.tag}
+                description={product.description}
+                image={product.image}
+                title={product.title}
+                orginalPrice={product.originalPrice}
+                discountPrice={product.discountPrice}
+                likes={product.likes}
+                addedtime={product.addedTime}
+                showtype={productView}
+              />
+            ))}
+          </div>
+
         </div>
         <div className=" space-y-8">
           <CategoryList />
