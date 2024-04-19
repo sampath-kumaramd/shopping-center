@@ -67,12 +67,15 @@ export default function Home() {
     <div className="h-auto mx-32 my-8">
       <div className=" flex justify-between items-center ">
         <div className=" font-bold text-3xl"> Mais quentes </div>
-        <div className="flex space-x-1">
-          
-          <div className={`rounded-full h-2 w-2 ${api?.selectedScrollSnap() < 4 ? 'bg-red-600 w-8' : 'bg-gray-300 w-2'}`}></div>
-          <div className={`rounded-full h-2 w-2 ${api?.selectedScrollSnap() >= 4 && api?.selectedScrollSnap()  < 8 ? 'bg-red-600 w-8' : 'bg-gray-300 w-2'}`}></div>
-          <div className={`rounded-full h-2 w-2 ${api?.selectedScrollSnap()  >= 8 ? 'bg-red-600 w-8' : 'bg-gray-300 w-2'}`}></div>
-        </div>
+        {
+          api ? (
+            <div className="flex space-x-1">
+              <div className={`rounded-full h-2 w-2 ${api.selectedScrollSnap() < 4 ? 'bg-red-600 w-8' : 'bg-gray-300 w-2'}`}></div>
+              <div className={`rounded-full h-2 w-2 ${api.selectedScrollSnap() >= 4 && api.selectedScrollSnap() < 8 ? 'bg-red-600 w-8' : 'bg-gray-300 w-2'}`}></div>
+              <div className={`rounded-full h-2 w-2 ${api.selectedScrollSnap() >= 8 ? 'bg-red-600 w-8' : 'bg-gray-300 w-2'}`}></div>
+            </div>
+          ) : null
+        }
       </div>
       <Carousel
         opts={{
