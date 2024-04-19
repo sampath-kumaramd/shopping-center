@@ -34,11 +34,11 @@ function Filter() {
 
         {/* range slider component */}
         <RangeSlider />
-        <Separator className="my-2"/>
+        <Separator className="my-2" />
         <div className="flex flex-col gap-2">
-          {Stores.map((category: Store) => {
+          {Stores.map((category: Store, index: number) => {
             const StoreComponent = () => (
-              <div key={category.id}>
+              <div key={`${category.id}-${index}`}>
                 <div className="flex gap-3">
                   <Checkbox className="border rounded-none border-black bg-white h-4 w-4 my-1" />
                   <div className="flex text-base pl-3">{category.title}</div>
@@ -46,7 +46,7 @@ function Filter() {
               </div>
             );
             StoreComponent.displayName = `StoreComponent${category.id}`;
-            return <StoreComponent key={category.id} />;
+            return <StoreComponent key={`${category.id}-${index}`} />;
           })}
         </div>
       </div>

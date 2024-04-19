@@ -7,12 +7,38 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ProductCardShowType } from "@/lib/enums/product-card-show";
 import Image from "next/image";
-import { useState } from "react";
+import React, { use, useEffect, useState } from "react";
+import Autoplay from "embla-carousel-autoplay"
+import {
+  Carousel,
+  CarouselApi,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
 
 export default function Home() {
 
   const [activeTag, setActiveTag] = useState<string>("Recentes");
   const [productView, setProductView] = useState<ProductCardShowType>(ProductCardShowType.short);
+  const [api, setApi] = React.useState<CarouselApi>()
+  const [current, setCurrent] = React.useState(0)
+  const [count, setCount] = React.useState(0)
+
+  React.useEffect(() => {
+    if (!api) {
+      return
+    }
+
+    setCount(api.scrollSnapList().length)
+    setCurrent(api.selectedScrollSnap() + 1)
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap() + 1)
+      console.log(api.selectedScrollSnap(), ' count')
+    })
+  }, [api])
 
   const handleProductView = (view: ProductCardShowType) => {
     setProductView(view);
@@ -21,35 +47,68 @@ export default function Home() {
   const handleTagClick = (tag: string) => {
     setActiveTag(tag);
   }
+  const handleResize = () => {
+    if (window.innerWidth <= 768) {
+      setProductView(ProductCardShowType.mini);
+    } else {
+      setProductView(ProductCardShowType.short);
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    }
+  }, []);
 
   return (
     <div className="h-auto mx-32 my-8">
       <div className=" flex justify-between items-center ">
         <div className=" font-bold text-3xl"> Mais quentes </div>
         <div className="flex space-x-1">
-          <div className=" rounded-full bg-red-600 h-2 w-8"> </div>
-          <div className=" rounded-full bg-gray-300 h-2 w-2"> </div>
-          <div className=" rounded-full bg-gray-300 h-2 w-2"> </div>
+          
+          <div className={`rounded-full h-2 w-2 ${api?.selectedScrollSnap() < 4 ? 'bg-red-600 w-8' : 'bg-gray-300 w-2'}`}></div>
+          <div className={`rounded-full h-2 w-2 ${api?.selectedScrollSnap() >= 4 && api?.selectedScrollSnap()  < 8 ? 'bg-red-600 w-8' : 'bg-gray-300 w-2'}`}></div>
+          <div className={`rounded-full h-2 w-2 ${api?.selectedScrollSnap()  >= 8 ? 'bg-red-600 w-8' : 'bg-gray-300 w-2'}`}></div>
         </div>
       </div>
-      {/* <ProductCard tag="Destaques" description="A1 Mini fones de ouvido sem fio Bluetooth" image="/images/product1.svg" title="Amazon" orginalPrice={92.44} discountPrice={76.13} likes={24} addedtime="2 min" showtype={ProductCardShowType.short} /> */}
-
-      <div className=" flex space-x-4 my-6">
-        {Products.slice(0, 4).map((product) => (
-          <ProductCard
-            key={product.title}
-            tag={product.tag}
-            description={product.description}
-            image={product.image}
-            title={product.title}
-            orginalPrice={product.originalPrice}
-            discountPrice={product.discountPrice}
-            likes={product.likes}
-            addedtime={product.addedTime}
-            showtype={ProductCardShowType.mini}
-          />
-        ))}
-      </div>
+      <Carousel
+        opts={{
+          align: "start",
+          loop: true,
+        }}
+        plugins={[
+          Autoplay({
+            delay: 3000,
+          }),
+        ]}
+        setApi={setApi}
+        className="w-full"
+      >
+        <CarouselContent>
+          {Products.slice(0, 12).map((product, index) => (
+            <CarouselItem key={`${product.id}-${product.title}`} className="md:basis-1/4 lg:basis-1/4 basis-1">
+              <div className="p-1">
+                <ProductCard
+                  tag={product.tag}
+                  description={product.description}
+                  image={product.image}
+                  title={product.title}
+                  orginalPrice={product.originalPrice}
+                  discountPrice={product.discountPrice}
+                  likes={product.likes}
+                  addedtime={product.addedTime}
+                  showtype={ProductCardShowType.mini}
+                />
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious />
+        <CarouselNext />
+      </Carousel>
 
       <div className="mt-12 mb-6 text-3xl font-bold">Todas as ofertas</div>
       <div className=" flex space-x-8 ">
@@ -83,7 +142,7 @@ export default function Home() {
           <div className={productView === ProductCardShowType.long ? " space-y-4" : "grid grid-cols-4 gap-x-6 gap-y-8"}>
             {Products.slice(0, 8).map((product) => (
               <ProductCard
-                key={product.title}
+                key={`${product.id}-${product.title}`}
                 tag={product.tag}
                 description={product.description}
                 image={product.image}
@@ -105,7 +164,7 @@ export default function Home() {
           <div className={productView === ProductCardShowType.long ? " space-y-4" : "grid grid-cols-4 gap-x-6 gap-y-8"}>
             {Products.slice(0, 8).map((product) => (
               <ProductCard
-                key={product.title}
+                key={`${product.id}-${product.title}`}
                 tag={product.tag}
                 description={product.description}
                 image={product.image}

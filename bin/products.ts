@@ -1,4 +1,5 @@
 export type Product = {
+    id: number;
     tag?: string;
     description: string;
     image: string;
@@ -11,6 +12,7 @@ export type Product = {
 
 export const Products: Product[] = [
     {
+        id: 1,
         tag: "Destaques",
         description: "A1 Mini fones de ouvido sem fio Bluetooth",
         image: "/images/product1.svg",
@@ -21,6 +23,7 @@ export const Products: Product[] = [
         addedTime: "2 min",
     },
     {
+        id: 2,
         description: "Fritadeira Elétrica Sem Óleo EOS Chef Gourmet...",
         image: "/images/product2.svg",
         title: "Casas Bahia",
@@ -30,6 +33,7 @@ export const Products: Product[] = [
         addedTime: "5 min",
     },
     {
+        id: 3,
         description: "Tênis Nike Precision 6 Masculino",
         image: "/images/product3.svg",
         title: "Mercado Livre",
@@ -39,6 +43,7 @@ export const Products: Product[] = [
         addedTime: "32 min",
     },
     {
+        id: 4, 
         tag: "Desconto alto",
         description: "Ketchup Hemmer Tradicional 1kg",
         image: "/images/product4.svg",
@@ -49,6 +54,7 @@ export const Products: Product[] = [
         addedTime: "1 hora",
     },
     {
+        id: 5, 
         tag: "Destaques",
         description: "A1 Mini fones de ouvido sem fio Bluetooth",
         image: "/images/product1.svg",
@@ -59,6 +65,7 @@ export const Products: Product[] = [
         addedTime: "2 min",
     },
     {
+        id: 6, 
         description: "Fritadeira Elétrica Sem Óleo EOS Chef Gourmet...",
         image: "/images/product2.svg",
         title: "Casas Bahia",
@@ -68,6 +75,7 @@ export const Products: Product[] = [
         addedTime: "5 min",
     },
     {
+        id: 7,
         description: "Tênis Nike Precision 6 Masculino",
         image: "/images/product3.svg",
         title: "Mercado Livre",
@@ -77,6 +85,7 @@ export const Products: Product[] = [
         addedTime: "32 min",
     },
     {
+        id: 8,
         tag: "Desconto alto",
         description: "Ketchup Hemmer Tradicional 1kg",
         image: "/images/product4.svg",
@@ -87,6 +96,7 @@ export const Products: Product[] = [
         addedTime: "1 hora",
     },
     {
+        id: 9,
         tag: "Destaques",
         description: "A1 Mini fones de ouvido sem fio Bluetooth",
         image: "/images/product1.svg",
@@ -97,6 +107,7 @@ export const Products: Product[] = [
         addedTime: "2 min",
     },
     {
+        id: 10,
         description: "Fritadeira Elétrica Sem Óleo EOS Chef Gourmet...",
         image: "/images/product2.svg",
         title: "Casas Bahia",
@@ -106,6 +117,7 @@ export const Products: Product[] = [
         addedTime: "5 min",
     },
     {
+        id: 1,
         description: "Tênis Nike Precision 6 Masculino",
         image: "/images/product3.svg",
         title: "Mercado Livre",
@@ -115,6 +127,7 @@ export const Products: Product[] = [
         addedTime: "32 min",
     },
     {
+        id: 12,
         tag: "Desconto alto",
         description: "Ketchup Hemmer Tradicional 1kg",
         image: "/images/product4.svg",
@@ -125,6 +138,7 @@ export const Products: Product[] = [
         addedTime: "1 hora",
     },
     {
+        id: 13,
         tag: "Destaques",
         description: "A1 Mini fones de ouvido sem fio Bluetooth",
         image: "/images/product1.svg",
@@ -135,6 +149,7 @@ export const Products: Product[] = [
         addedTime: "2 min",
     },
     {
+        id: 14,
         description: "Fritadeira Elétrica Sem Óleo EOS Chef Gourmet...",
         image: "/images/product2.svg",
         title: "Casas Bahia",
@@ -144,6 +159,7 @@ export const Products: Product[] = [
         addedTime: "5 min",
     },
     {
+        id: 15,
         description: "Tênis Nike Precision 6 Masculino",
         image: "/images/product3.svg",
         title: "Mercado Livre",
@@ -153,6 +169,7 @@ export const Products: Product[] = [
         addedTime: "32 min",
     },
     {
+        id: 16,
         tag: "Desconto alto",
         description: "Ketchup Hemmer Tradicional 1kg",
         image: "/images/product4.svg",
