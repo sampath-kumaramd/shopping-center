@@ -64,9 +64,9 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="h-auto mx-32 my-8">
+    <div className="h-auto mx-4 md:mx-8 lg:mx-28 xl:mx-32 my-8">
       <div className=" flex justify-between items-center ">
-        <div className=" font-bold text-3xl"> Mais quentes </div>
+        <div className=" font-bold text-3xl mb-4"> Mais quentes </div>
         {
           api ? (
             <div className="flex space-x-1">
@@ -88,7 +88,7 @@ export default function Home() {
           }),
         ]}
         setApi={setApi}
-        className="w-full"
+        className="w-[85vw] mx-4 md:w-[80vw]"
       >
         <CarouselContent>
           {Products.slice(0, 12).map((product, index) => (
@@ -116,7 +116,7 @@ export default function Home() {
       <div className="mt-12 mb-6 text-3xl font-bold">Todas as ofertas</div>
       <div className=" flex space-x-8 ">
         <div>
-          <Card className="w-[75rem] my-8">
+          <Card className="mb-8">
             <CardContent className="pb-0 flex justify-between">
               <div className="flex space-x-4 items-center py-2 ">
                 <Button onClick={() => handleTagClick("Recentes")} className={activeTag === "Recentes" ? "bg-red-500 hover:bg-red-600 flex rounded-lg text-white items-center p-2" : " bg-white hover:bg-red-600 flex rounded-lg text-black items-center p-2"}>
@@ -133,16 +133,16 @@ export default function Home() {
                 </Button>
               </div>
               <div className=" flex space-x-4 items-center">
-                <Button onClick={() => handleProductView(ProductCardShowType.short)} className={productView === ProductCardShowType.short ? " " : " bg-white"}>
+                <Button onClick={() => handleProductView(ProductCardShowType.short)} className={productView === ProductCardShowType.short ? " p-2" : " bg-white p-2"}>
                   <Image src={productView === ProductCardShowType.short ? "/icons/grid-white.svg" : "/icons/grid.svg"} alt="grid Icon" width={25} height={25} />
                 </Button>
-                <Button onClick={() => handleProductView(ProductCardShowType.long)} className={productView === ProductCardShowType.long ? " " : " bg-white"}>
+                <Button onClick={() => handleProductView(ProductCardShowType.long)} className={productView === ProductCardShowType.long ? "p-2 " : " p-2 bg-white"}>
                   <Image src={productView === ProductCardShowType.long ? "/icons/list-white.svg" : "/icons/list.svg"} alt="list Icon" width={25} height={25} />
                 </Button>
               </div>
             </CardContent>
           </Card>
-          <div className={productView === ProductCardShowType.long ? " space-y-4" : "grid grid-cols-4 gap-x-6 gap-y-8"}>
+          <div className={productView === ProductCardShowType.long ? " space-y-2" : "grid lg:grid-cols-4 md:grid-cols-3  sm:grid-cols-2 gap-x-4 gap-y-8"}>
             {Products.slice(0, 8).map((product) => (
               <ProductCard
                 key={`${product.id}-${product.title}`}
@@ -158,13 +158,13 @@ export default function Home() {
               />
             ))}
           </div>
-          <Card className=" my-8">
+          <Card className="w-[85vw] my-8">
             <CardContent className="border-dashed  border-2 items-center flex justify-center h-52 p-0">
               ADS
             </CardContent>
           </Card>
 
-          <div className={productView === ProductCardShowType.long ? " space-y-4" : "grid grid-cols-4 gap-x-6 gap-y-8"}>
+         <div className={productView === ProductCardShowType.long ? " space-y-4" : "grid grid-cols-4 gap-x-6 gap-y-8"}>
             {Products.slice(0, 8).map((product) => (
               <ProductCard
                 key={`${product.id}-${product.title}`}
@@ -179,17 +179,17 @@ export default function Home() {
                 showtype={productView}
               />
             ))}
-          </div>
+          </div> 
 
         </div>
-        <div className=" space-y-8">
+        <div className="hidden lg:block space-y-8">
           <CategoryList />
-          <Card>
+          {/* <Card>
             <CardContent className=" border-dashed  border-2 items-center flex justify-center h-52 p-0">
               ADS
             </CardContent>
           </Card>
-          <div><Filter /></div>
+          <div><Filter /></div> */}
         </div>
       </div>
 

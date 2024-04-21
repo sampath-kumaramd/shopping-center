@@ -35,7 +35,7 @@ function ProductCard({ tag, image, title, orginalPrice, discountPrice, likes, ad
             isMini = true;
             break;
         case ProductCardShowType.short:
-            width = 'w-[19rem]';
+            width = 'w-[17rem]';
             display = 'block';
             isShort = 'block';
             isMini = false;

@@ -6,7 +6,7 @@ function CategoryList() {
   return (
     <div className="flex flex-col">
       <div className="text-2xl font-bold">Categorias</div>
-      <div className="flex flex-col bg-[#FAFAFA] w-[22rem] rounded-lg p-8 my-4 gap-5">
+      <div className="flex flex-col bg-[#FAFAFA] w-[22vw] rounded-lg p-8 my-4 gap-5">
         {Categories.map((category: Category) => {
           const CategoryComponent = () => (
             <div key={category.id} className="flex gap-3">
