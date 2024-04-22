@@ -1,4 +1,4 @@
-import { ChevronDown, LucideProps, Moon, SunMedium, type LucideIcon } from "lucide-react"
+import { ChevronDown, ChevronUp, LucideProps, Moon, SunMedium, type LucideIcon } from "lucide-react"
 import { LoaderCircle } from 'lucide-react';
 import { ChevronLeft } from 'lucide-react';
 
@@ -10,6 +10,7 @@ export const Icons = {
   spinner: LoaderCircle,
   chevronLeft: ChevronLeft,
   ChevronDown:ChevronDown,
+  ChevronUp:ChevronUp,
   
   twitter: (props: LucideProps) => (
     <svg
