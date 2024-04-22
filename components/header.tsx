@@ -28,7 +28,7 @@ function Header() {
 
     const form = useForm()
     return (
-        <>
+        <div className="sticky top-0 z-50">
             <div className="bg-primary h-24 flex items-center">
                 <div className=' 2xl:mx-32 xl:mx-20 lg:mx-16 md:mx-4  flex justify-between h-auto w-full'>
                     <div className="flex justify-between items-center w-full sm:w-96 mx-6 gap-4">
@@ -107,7 +107,7 @@ function Header() {
             </div>
             <div className="h-1 bg-[#eacb3d]">
             </div>
-        </>
+        </div>
     )
 }
 

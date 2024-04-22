@@ -10,7 +10,6 @@ import {
 import { ProductCardShowType } from '@/lib/enums/product-card-show'
 
 type Props = {
-    tag?: string
     image: string
     title: string
     description: string
@@ -19,6 +18,7 @@ type Props = {
     likes: number
     addedtime: string
     showtype: ProductCardShowType
+    tag?: string
     className?: string
 }
 
@@ -29,7 +29,7 @@ function ProductCard({ tag, image, title, orginalPrice, discountPrice, likes, ad
     let isMini;
     switch (showtype) {
         case ProductCardShowType.mini:
-            width = 'w-[24rem]';
+            width = 'w-[22rem]';
             display = 'flex';
             isShort = 'hidden';
             isMini = true;
@@ -97,7 +97,7 @@ function ProductCard({ tag, image, title, orginalPrice, discountPrice, likes, ad
                         <Separator className={isShort + ' my-4  '} />
                         <div className='px-4 w-full'>
                             <div className=' text-blue-500'>{title}</div>
-                            <div className=' text-xl mb-2'> {isMini ? description.slice(0, 36) + '...' : description}</div>
+                            <div className=' text-xl mb-2'> {isMini ? description.slice(0, 30) + '...' : description}</div>
                             <div style={{ textDecoration: 'line-through' }}>R$ {orginalPrice}</div>
                             <div className=' text-green-600 text-2xl font-semibold'>R$ {discountPrice}</div>
                             <div className=' flex justify-between mt-2 items-center text-gray-400'>
