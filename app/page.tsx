@@ -30,6 +30,8 @@ export default function Home() {
   const [api, setApi] = React.useState<CarouselApi>()
   const [current, setCurrent] = React.useState(0)
   const [count, setCount] = React.useState(0)
+  const [selectedTag, setSelectedTag] = useState<string>('');
+
 
   React.useEffect(() => {
     if (!api) {
@@ -51,6 +53,11 @@ export default function Home() {
 
   const handleTagClick = (tag: string) => {
     setActiveTag(tag);
+    if (tag !== "Recentes") {
+      setSelectedTag(tag);
+    } else {
+      setSelectedTag(''); 
+    }
   }
   const handleResize = () => {
     if (window.innerWidth <= 768) {
@@ -159,21 +166,24 @@ export default function Home() {
               </div>
             </CardContent>
           </Card>
-          <div className={productView === ProductCardShowType.long ? " space-y-2" : "grid 2xl:grid-cols-4 xl:grid-cols-3  lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-x-4 gap-y-8"}>
-            {Products.slice(0, 8).map((product) => (
-              <ProductCard
-                key={`${product.id}-${product.title}`}
-                tag={product.tag}
-                description={product.description}
-                image={product.image}
-                title={product.title}
-                orginalPrice={product.originalPrice}
-                discountPrice={product.discountPrice}
-                likes={product.likes}
-                addedtime={product.addedTime}
-                showtype={productView}
-              />
-            ))}
+          <div className={productView === ProductCardShowType.long ? " space-y-2" : "grid 2xl:grid-cols-4 xl:grid-cols-3  lg:grid-cols-2 md:grid-cols-2 grid-cols-1  gap-y-8 justify-around  justify-items-center"}>
+            {Products
+                .filter(product => selectedTag === '' || product.tag === selectedTag)
+              .slice(0, 8)
+              .map((product) => (
+                <ProductCard
+                  key={`${product.id}-${product.title}`}
+                  tag={product.tag}
+                  description={product.description}
+                  image={product.image}
+                  title={product.title}
+                  orginalPrice={product.originalPrice}
+                  discountPrice={product.discountPrice}
+                  likes={product.likes}
+                  addedtime={product.addedTime}
+                  showtype={productView}
+                />
+              ))}
           </div>
           <Card className=" my-8">
             <CardContent className="border-dashed  border-2 items-center flex justify-center h-52 p-0">
@@ -181,21 +191,24 @@ export default function Home() {
             </CardContent>
           </Card>
 
-          <div className={productView === ProductCardShowType.long ? " space-y-2" : "grid 2xl:grid-cols-4 xl:grid-cols-3  lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-x-4 gap-y-8"}>
-            {Products.slice(0, 8).map((product) => (
-              <ProductCard
-                key={`${product.id}-${product.title}`}
-                tag={product.tag}
-                description={product.description}
-                image={product.image}
-                title={product.title}
-                orginalPrice={product.originalPrice}
-                discountPrice={product.discountPrice}
-                likes={product.likes}
-                addedtime={product.addedTime}
-                showtype={productView}
-              />
-            ))}
+          <div className={productView === ProductCardShowType.long ? " space-y-2" : "grid 2xl:grid-cols-4 xl:grid-cols-3  lg:grid-cols-2 md:grid-cols-2 grid-cols-1  gap-y-8 justify-around  justify-items-center"}>
+            {Products
+                .filter(product => selectedTag === '' || product.tag === selectedTag)
+              .slice(0, 8)
+              .map((product) => (
+                <ProductCard
+                  key={`${product.id}-${product.title}`}
+                  tag={product.tag}
+                  description={product.description}
+                  image={product.image}
+                  title={product.title}
+                  orginalPrice={product.originalPrice}
+                  discountPrice={product.discountPrice}
+                  likes={product.likes}
+                  addedtime={product.addedTime}
+                  showtype={productView}
+                />
+              ))}
           </div>
 
         </div>
@@ -231,7 +244,7 @@ export default function Home() {
           </Card>
           <div className="flex flex-col">
             <div className="text-2xl font-bold">Filtros</div>
-            <div className="flex flex-col bg-[#FAFAFA] w-[22vw] rounded-lg px-8 py-6 my-4 gap-2">
+            <div className="flex flex-col bg-[#FAFAFA]  rounded-lg px-8 py-6 my-4 gap-2">
               <div className="text-xl font-medium">Faixa de preço</div>
               <RangeSlider />
               <Separator className="my-2" />

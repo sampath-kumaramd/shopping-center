@@ -16,6 +16,12 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import Filter from "./filter"
+import RangeSlider from "./range-slider"
+import { Separator } from "./ui/separator"
+import { Store, Stores } from "@/bin/stores"
+import { Checkbox } from "./ui/checkbox"
+import { Categories, Category } from "@/bin/categories"
+import { ButtonLabels } from "@/bin/filter-button-labels"
 
 
 
@@ -31,7 +37,7 @@ function Header() {
         <div className="sticky top-0 z-50">
             <div className="bg-primary h-24 flex items-center">
                 <div className=' 2xl:mx-32 xl:mx-20 lg:mx-16 md:mx-4  flex justify-between h-auto w-full'>
-                    <div className="flex justify-between items-center w-full sm:w-96 mx-6 gap-4">
+                    <div className="flex justify-between items-center w-80 sm:w-96 mx-6 gap-4">
                         <Image src='/icons/logo.png' alt='logo' width={200} height={42} className={`sm:block block ${isSearchVisible ? 'hidden' : ''}`} />
                         <div className="flex space-x-4 w-96 md:w-80">
                             <button onClick={toggleSearch}>
@@ -41,51 +47,98 @@ function Header() {
                                 <Icons.chevronLeft color="#ffffff" width={40} className={`sm:hidden  ${isSearchVisible ? '' : 'hidden'}`} />
                             </button>
                             <Input placeholder="O que está procurando?" className={`w-full border-gray-200 rounded-full sm:hidden ${isSearchVisible ? '' : 'hidden'}`} />
-                            {/* <Dialog>
+                            <Dialog>
                                 <DialogTrigger className={`sm:block block text-white focus:border-none ${isSearchVisible ? 'hidden' : ''}`}>
                                     <div className="flex gap-2">Categorias <Icons.ChevronDown /></div>
                                 </DialogTrigger>
-                                <DialogContent className="absolute top-96 right-40 sm:left-96 sm:top-48 w-10/12">
+                                <DialogContent className="absolute top-[60vh] right-40 sm:left-96 sm:top-56 w-10/12 bg-[#f7ede9] sm:bg-white h-screen overflow-y-scroll">
                                     <DialogHeader>
                                         <DialogTitle className="mb-8">
                                             <div className=" hidden sm:block">Todas as categorias</div>
                                             <div className=" sm:hidden block">Filtrar por</div>
                                         </DialogTitle>
                                         <DialogDescription>
-                                            <div className="hidden sm:flex space-x-4 justify-evenly">
-                                                <div className=" space-y-4">
-                                                    <div>Eletrônicos</div>
-                                                    <div>Móveis e Eletrodomésticos</div>
-                                                    <div>Moda</div>
-                                                    <div>Bebês e Crianças</div>
+                                            <div className="hidden sm:flex justify-evenly">
+                                                <div>
+                                                    {Categories.slice(0, 4).map((category: Category) => {
+                                                        const CategoryComponent = () => (
+                                                            <button key={category.id} className="flex items-center gap-4">
+                                                                <div className="w-9 h-9  flex items-center justify-center">
+                                                                    <Image
+                                                                        src={category.src}
+                                                                        alt="About Us"
+                                                                        width={22}
+                                                                        height={22}
+                                                                    />
+                                                                </div>
+                                                                <div>
+                                                                    <h2 className="text-sm font-medium py-4 items-center">{category.title}</h2>
+                                                                </div>
+                                                            </button>
+                                                        );
+                                                        CategoryComponent.displayName = `CategoryComponent${category.id}`;
+                                                        return <CategoryComponent key={category.id} />;
+                                                    })}
                                                 </div>
-
-                                                <div className=" space-y-4">
-                                                    <div>Saúde e Beleza</div>
-                                                    <div>Esportes e Lazer</div>
-                                                    <div>Automotivo</div>
-                                                    <div>Supermercado</div>
+                                                <div className="">
+                                                    {Categories.slice(4, 8).map((category: Category) => {
+                                                        const CategoryComponent = () => (
+                                                            <button key={category.id} className="flex items-center gap-4">
+                                                                <div className="w-9 h-9  flex items-center justify-center">
+                                                                    <Image
+                                                                        src={category.src}
+                                                                        alt="About Us"
+                                                                        width={22}
+                                                                        height={22}
+                                                                    />
+                                                                </div>
+                                                                <div>
+                                                                    <h2 className="text-sm font-medium py-4 items-center">{category.title}</h2>
+                                                                </div>
+                                                            </button>
+                                                        );
+                                                        CategoryComponent.displayName = `CategoryComponent${category.id}`;
+                                                        return <CategoryComponent key={category.id} />;
+                                                    })}
                                                 </div>
 
                                             </div>
-                                            <div className=" block sm:hidden space-y-4 text-left bg-[#f7ede9]">
-                                                <div className=" font-bold ">Itens</div>
-                                                <div>Acessórios</div>
-                                                <div>Câmera digital</div>
-                                                <div>Celular</div>
-                                                <div>Computador</div>
-                                                <div>Fones de ouvido</div>
-                                                <div>Monitores</div>
-                                                <div>Notebook</div>
-                                                <div>Smartwatches</div>
-                                                <div>Tablets</div>
-                                                <div>TV</div>
-                                                <div><Filter /></div>
+                                            <div className=" block sm:hidden space-y-4 text-left ">
+                                                <div className=" font-bold text-xl">Itens</div>
+                                                {ButtonLabels.map(label => (
+                                                    <div key={label.id}>
+                                                        <button>
+                                                            {label.title}
+                                                        </button>
+                                                    </div>
+                                                ))}
+
+                                            </div>
+                                            <div className=" sm:hidden flex flex-col">
+                                                <div className="flex flex-col rounded-lg  my-4 gap-2">
+                                                    <div className="text-xl font-medium text-left">Faixa de preço</div>
+                                                    <RangeSlider />
+                                                    <Separator className="my-2" />
+                                                    <div className="flex flex-col gap-2 mb-16">
+                                                        {Stores.map((category: Store, index: number) => {
+                                                            const StoreComponent = () => (
+                                                                <div key={`${category.id}-${index}`}>
+                                                                    <div className="flex gap-3">
+                                                                        <Checkbox className="border rounded-none border-black bg-white h-4 w-4 my-1" />
+                                                                        <div className="flex text-base pl-3">{category.title}</div>
+                                                                    </div>
+                                                                </div>
+                                                            );
+                                                            StoreComponent.displayName = `StoreComponent${category.id}`;
+                                                            return <StoreComponent key={`${category.id}-${index}`} />;
+                                                        })}
+                                                    </div>
+                                                </div>
                                             </div>
                                         </DialogDescription>
                                     </DialogHeader>
                                 </DialogContent>
-                            </Dialog> */}
+                            </Dialog>
                         </div>
 
                     </div>
