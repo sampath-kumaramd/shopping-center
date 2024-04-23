@@ -19,7 +19,7 @@ function Footer() {
         <div className=' sm:hidden mb-8 flex justify-center gap-4'>
           <button className='flex' onClick={toggleFooter}>
             {isFooterVisible ? 'Esconder rodapé' : 'Mostrar rodapé'} 
-            {isFooterVisible ? <Icons.ChevronUp /> : <Icons.ChevronDown />}
+            {isFooterVisible ? <Icons.ChevronDown />  : <Icons.ChevronUp /> }
           </button>
         </div>
         <div className={`space-y-4 ${isFooterVisible ? '' : 'hidden'}`}>

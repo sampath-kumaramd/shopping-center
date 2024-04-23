@@ -4,7 +4,7 @@ import Link from "next/link";
 
 function SocialMediaGroups() {
   return (
-    <div className="flex flex-col bg-[#FAFAFA] w-[22rem] rounded-lg px-8 py-6 my-4 gap-3 justify-center items-center">
+    <div className="flex flex-col bg-[#FAFAFA] w-full rounded-lg px-8 py-6 my-4 gap-3 justify-center items-center">
       <div className="text-xl font-medium">Fique por dentro</div>
       <div className="text-lg font-normal text-[#514D4D] text-center mb-3">
         Entre nos grupos e saiba das promoções em tempo real.

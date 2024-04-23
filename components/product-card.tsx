@@ -95,11 +95,13 @@ function ProductCard({ tag, image, title, orginalPrice, discountPrice, likes, ad
                             }
                         </div>
                         <Separator className={isShort + ' my-4  '} />
-                        <div className='px-4 w-full'>
-                            <div className=' text-blue-500'>{title}</div>
-                            <div className=' text-xl mb-2'> {isMini ? description.slice(0, 30) + '...' : description}</div>
-                            <div style={{ textDecoration: 'line-through' }}>R$ {orginalPrice}</div>
-                            <div className=' text-green-600 text-2xl font-semibold'>R$ {discountPrice}</div>
+                        <div className='px-4 w-full flex flex-col justify-between h-48'>
+                            <div>
+                                <div className=' text-blue-500'>{title}</div>
+                                <div className=' text-xl mb-2'> {isMini ? description.slice(0, 30) + '...' : description}</div>
+                                <div style={{ textDecoration: 'line-through' }}>R$ {orginalPrice}</div>
+                                <div className=' text-green-600 text-2xl font-semibold'>R$ {discountPrice}</div>
+                            </div>
                             <div className=' flex justify-between mt-2 items-center text-gray-400'>
                                 {!isMini && (
                                     <>

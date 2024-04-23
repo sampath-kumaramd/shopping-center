@@ -22,6 +22,7 @@ import RangeSlider from "@/components/range-slider";
 import { Separator } from "@radix-ui/react-separator";
 import { Store, Stores } from "@/bin/stores";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
 
@@ -31,6 +32,8 @@ export default function Home() {
   const [current, setCurrent] = React.useState(0)
   const [count, setCount] = React.useState(0)
   const [selectedTag, setSelectedTag] = useState<string>('');
+
+  const router = useRouter();
 
 
   React.useEffect(() => {
@@ -218,7 +221,7 @@ export default function Home() {
             <div className="flex flex-col bg-[#FAFAFA] rounded-lg p-8 my-4 gap-5">
               {Categories.map((category: Category) => {
                 const CategoryComponent = () => (
-                  <div key={category.id} className="flex gap-3">
+                  <button key={category.id} className="flex gap-3" onClick={() => router.push(`category/${category.id}`)}>
                     <div className="w-9 h-9 bg-[#E7E7E7] rounded-full flex items-center justify-center">
                       <Image
                         src={category.src}
@@ -230,7 +233,7 @@ export default function Home() {
                     <div>
                       <h2 className="text-lg font-medium py-1">{category.title}</h2>
                     </div>
-                  </div>
+                  </button>
                 );
                 CategoryComponent.displayName = `CategoryComponent${category.id}`;
                 return <CategoryComponent key={category.id} />;

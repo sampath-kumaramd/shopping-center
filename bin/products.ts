@@ -66,7 +66,7 @@ export const Products: Product[] = [
     },
     {
         id: 6, 
-        description: "Fritadeira Elétrica Sem Óleo EOS Chef Gourmet...",
+        description: "Fritadeira Elétrica Sem Óleo ",
         image: "/images/product2.svg",
         title: "Casas Bahia",
         originalPrice: 209.00,
