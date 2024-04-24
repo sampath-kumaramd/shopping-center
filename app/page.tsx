@@ -59,7 +59,7 @@ export default function Home() {
     if (tag !== "Recentes") {
       setSelectedTag(tag);
     } else {
-      setSelectedTag(''); 
+      setSelectedTag('');
     }
   }
   const handleResize = () => {
@@ -110,8 +110,11 @@ export default function Home() {
             <CarouselItem key={`${product.id}-${product.title}`} className="lg:basis-1/2  2xl:basis-1/4 xl:basis-1/3 basis-full">
               <div className="p-1">
                 <ProductCard
+                  id={product.id}
+                  categoryId={product.categoryId}
+                  discription={product.discription}
                   tag={product.tag}
-                  description={product.description}
+                  subTitle={product.subTitle}
                   image={product.image}
                   title={product.title}
                   orginalPrice={product.originalPrice}
@@ -171,13 +174,16 @@ export default function Home() {
           </Card>
           <div className={productView === ProductCardShowType.long ? " space-y-2" : "grid 2xl:grid-cols-4 xl:grid-cols-3  lg:grid-cols-2 md:grid-cols-2 grid-cols-1  gap-y-8 justify-around  justify-items-center"}>
             {Products
-                .filter(product => selectedTag === '' || product.tag === selectedTag)
+              .filter(product => selectedTag === '' || product.tag === selectedTag)
               .slice(0, 8)
               .map((product) => (
                 <ProductCard
+                  id={product.id}
+                  categoryId={product.categoryId}
+                  discription={product.discription}
                   key={`${product.id}-${product.title}`}
                   tag={product.tag}
-                  description={product.description}
+                  subTitle={product.subTitle}
                   image={product.image}
                   title={product.title}
                   orginalPrice={product.originalPrice}
@@ -196,13 +202,16 @@ export default function Home() {
 
           <div className={productView === ProductCardShowType.long ? " space-y-2" : "grid 2xl:grid-cols-4 xl:grid-cols-3  lg:grid-cols-2 md:grid-cols-2 grid-cols-1  gap-y-8 justify-around  justify-items-center"}>
             {Products
-                .filter(product => selectedTag === '' || product.tag === selectedTag)
+              .filter(product => selectedTag === '' || product.tag === selectedTag)
               .slice(0, 8)
               .map((product) => (
                 <ProductCard
+                  id={product.id}
+                  categoryId={product.categoryId}
+                  discription={product.discription}
                   key={`${product.id}-${product.title}`}
                   tag={product.tag}
-                  description={product.description}
+                  subTitle={product.subTitle}
                   image={product.image}
                   title={product.title}
                   orginalPrice={product.originalPrice}

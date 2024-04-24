@@ -1,5 +1,6 @@
 export enum ProductCardShowType {
     long,
     short,
-    mini
+    mini,
+    large
 }

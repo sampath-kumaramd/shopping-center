@@ -42,7 +42,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
 
   return (
     <div className=' h-auto lg:mx-32 md:mx-16 mx-8 py-12'>
-      <Custombreadcrumb title_1={category?.title} href_1={`/category/${category?.id}`} />
+      <Custombreadcrumb title_1='Categorias' title_2={category?.title} href_2={`/category/${category?.id}`} href_1={`/category/1`} />
       <div className=" flex font-bold text-3xl my-8 gap-4">
         <div className="w-9 h-9 flex items-center justify-center">
           <Image
@@ -77,10 +77,10 @@ export default function CategoryPage({ params }: CategoryPageProps) {
               ))}
             </CardContent>
           </Card>
-          
-          
-          
-              <Card>
+
+
+
+          <Card>
             <CardContent className='bg-[#FAFAFA]'>
               <div className="flex flex-col">
                 <div className="flex flex-col   rounded-lg px-8 py-0 my-4 gap-2">
@@ -105,10 +105,10 @@ export default function CategoryPage({ params }: CategoryPageProps) {
               </div>
             </CardContent>
           </Card>
-          
+
           <SocialMediaGroups />
-          </div>
-          
+        </div>
+
         <div className=" col-span-11 sm:col-span-8 xl:col-span-9">
           <Card className="mb-8">
             <CardContent className="pb-0 flex justify-between">
@@ -155,9 +155,12 @@ export default function CategoryPage({ params }: CategoryPageProps) {
               .slice(0, 8)
               .map((product) => (
                 <ProductCard
+                  id={product.id}
+                  categoryId={product.categoryId}
+                  discription={product.discription}
                   key={`${product.id}-${product.title}`}
                   tag={product.tag}
-                  description={product.description}
+                  subTitle={product.subTitle}
                   image={product.image}
                   title={product.title}
                   orginalPrice={product.originalPrice}
@@ -180,9 +183,12 @@ export default function CategoryPage({ params }: CategoryPageProps) {
               .slice(0, 8)
               .map((product) => (
                 <ProductCard
+                  id={product.id}
+                  categoryId={product.categoryId}
+                  discription={product.discription}
                   key={`${product.id}-${product.title}`}
                   tag={product.tag}
-                  description={product.description}
+                  subTitle={product.subTitle}
                   image={product.image}
                   title={product.title}
                   orginalPrice={product.originalPrice}
@@ -212,7 +218,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
             </CardContent>
           </Card>
 
-      
+
         </div>
       </div>
 

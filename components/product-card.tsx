@@ -8,11 +8,16 @@ import {
 } from "@/components/ui/card"
 
 import { ProductCardShowType } from '@/lib/enums/product-card-show'
+import { useRouter } from 'next/navigation'
+import { Button } from './ui/button'
 
 type Props = {
+    id: number
+    categoryId: number
     image: string
     title: string
-    description: string
+    subTitle: string
+    discription: string
     orginalPrice: number
     discountPrice: number
     likes: number
@@ -22,35 +27,47 @@ type Props = {
     className?: string
 }
 
-function ProductCard({ tag, image, title, orginalPrice, discountPrice, likes, addedtime, showtype, description, className }: Props) {
+function ProductCard({ id, categoryId, tag, image, title, discription, orginalPrice, discountPrice, likes, addedtime, showtype, subTitle, className }: Props) {
     let width;
     let display;
     let isShort;
-    let isMini;
+    let imageWidth;
+    let imageHeight;
     switch (showtype) {
         case ProductCardShowType.mini:
+            imageWidth = 200;
+            imageHeight = 200;
             width = 'w-[22rem]';
             display = 'flex';
             isShort = 'hidden';
-            isMini = true;
             break;
         case ProductCardShowType.short:
+            imageWidth = 200;
+            imageHeight = 200;
             width = 'w-[17rem]';
             display = 'block';
             isShort = 'block';
-            isMini = false;
             break;
         case ProductCardShowType.long:
+            imageWidth = 200;
+            imageHeight = 200;
             width = 'w-full';
             display = 'flex';
             isShort = 'hidden';
-            isMini = false;
+            break;
+        case ProductCardShowType.large:
+            imageWidth = 400;
+            imageHeight = 400;
+            width = 'w-full';
+            display = 'flex';
+            isShort = 'hidden';
             break;
         default:
+            imageWidth = 200;
+            imageHeight = 200;
             width = 'w-40'; // default width
             display = 'flex';
             isShort = 'hidden';
-            isMini = false;
     }
 
     let bgColor;
@@ -77,33 +94,66 @@ function ProductCard({ tag, image, title, orginalPrice, discountPrice, likes, ad
             tagIcon = '/icons/heart.svg';
     }
 
+    const router = useRouter();
+
     return (
         <>
             <Card className={width + ' ' + className + ' group'}>
                 <CardContent className='my-4 p-0'>
                     <div className={display + ' relative '}>
                         <div className=' flex justify-center'>
+                            <button onClick={() => router.replace(`/category/${categoryId}/product/${id}`)}>
+                                <Image src={image} alt={title} width={imageWidth} height={imageHeight} className={`${showtype === ProductCardShowType.large ? ' my-8' : '  '}`}/>
+                                {
+                                    tag && (
+                                        <div className={bgColor + ' absolute top-0 right-2 text-white px-2 py-1 rounded-md flex ' + isShort}>
+                                            <Image src={tagIcon} alt={tag} width={20} height={20} />
+                                            <span className="hidden group-hover:inline">{tag}</span>
+                                        </div>
+                                    )
+                                }
+                            </button>
 
-                            <Image src={image} alt={title} width={200} height={200} />
-                            {
-                                tag && (
-                                    <div className={bgColor + ' absolute top-0 right-2 text-white px-2 py-1 rounded-md flex ' + isShort}>
-                                        <Image src={tagIcon} alt={tag} width={20} height={20} />
-                                        <span className="hidden group-hover:inline">{tag}</span>
-                                    </div>
-                                )
-                            }
                         </div>
                         <Separator className={isShort + ' my-4  '} />
                         <div className='px-4 w-full flex flex-col justify-between h-48'>
                             <div>
                                 <div className=' text-blue-500'>{title}</div>
-                                <div className=' text-xl mb-2'> {isMini ? description.slice(0, 30) + '...' : description}</div>
-                                <div style={{ textDecoration: 'line-through' }}>R$ {orginalPrice}</div>
-                                <div className=' text-green-600 text-2xl font-semibold'>R$ {discountPrice}</div>
+                                <div className={`${showtype === ProductCardShowType.large ? ' text-2xl mb-2 font-bold mt-2' : 'text-xl mb-2 '}`}> {showtype === ProductCardShowType.mini ? subTitle.slice(0, 30) + '...' : subTitle}</div>
+                                <div className={`${showtype === ProductCardShowType.large ? ' block my-4' : ' hidden '}`}>{discription}</div>
+                                <div className=' flex gap-24'>
+                                    <div>
+                                        <div style={{ textDecoration: 'line-through' }}>R$ {orginalPrice}</div>
+                                        <div className=' text-green-600 text-2xl font-semibold'>R$ {discountPrice}</div>
+                                    </div>
+                                    <div className={`${showtype === ProductCardShowType.large ? ' flex space-x-4 ' : ' hidden '}`} >
+                                        <Button className=' rounded-full'>
+                                            Ir para a loja
+                                        </Button>
+                                        <Button className=' rounded-full'>
+                                            S
+                                        </Button>
+                                        <Button className=' rounded-full'>
+                                            C
+                                        </Button>
+                                    </div>
+                                </div>
+                                <div className={`${showtype === ProductCardShowType.large ? 'block' : ' hidden '}`}>
+                                    <Separator className=' my-8'/>
+
+                                    <div className='flex gap-4'>
+                                        <div className='flex gap-3'>
+                                            <Image src="/icons/heart.svg" alt={title} width={20} height={20} />
+                                            <div>
+                                                {likes}
+                                            </div>
+                                        </div>
+                                        <div>há {addedtime}</div>
+                                    </div>
+                                </div>
                             </div>
                             <div className=' flex justify-between mt-2 items-center text-gray-400'>
-                                {!isMini && (
+                                {(showtype !== ProductCardShowType.mini && showtype !== ProductCardShowType.large) && (
                                     <>
                                         <div>há {addedtime}</div>
                                         <div className='flex gap-3 '>
@@ -128,4 +178,4 @@ export default ProductCard
 
 // sample card
 
-{/* <ProductCard tag="Destaques" description="A1 Mini fones de ouvido sem fio Bluetooth" image="/images/product1.svg" title="Amazon" orginalPrice={92.44} discountPrice={76.13} likes={24} addedtime="2 min" showtype={ProductCardShowType.short} /> */ }
+{/* <ProductCard tag="Destaques" subTitle="A1 Mini fones de ouvido sem fio Bluetooth" image="/images/product1.svg" title="Amazon" orginalPrice={92.44} discountPrice={76.13} likes={24} addedtime="2 min" showtype={ProductCardShowType.short} /> */ }

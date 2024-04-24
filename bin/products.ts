@@ -1,7 +1,9 @@
 export type Product = {
     id: number;
+    categoryId: number;
     tag?: string;
-    description: string;
+    subTitle: string;
+    discription: string;
     image: string;
     title: string;
     originalPrice: number;
@@ -13,8 +15,10 @@ export type Product = {
 export const Products: Product[] = [
     {
         id: 1,
+        categoryId: 1,
         tag: "Destaques",
-        description: "A1 Mini fones de ouvido sem fio Bluetooth",
+        subTitle: "A1 Mini fones de ouvido sem fio Bluetooth",
+        discription:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
         image: "/images/product1.svg",
         title: "Amazon",
         originalPrice: 92.44,
@@ -24,7 +28,9 @@ export const Products: Product[] = [
     },
     {
         id: 2,
-        description: "Fritadeira Elétrica Sem Óleo EOS Chef Gourmet...",
+        categoryId: 1,
+        subTitle: "Fritadeira Elétrica Sem Óleo EOS Chef Gourmet...",
+        discription:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
         image: "/images/product2.svg",
         title: "Casas Bahia",
         originalPrice: 209.00,
@@ -34,7 +40,9 @@ export const Products: Product[] = [
     },
     {
         id: 3,
-        description: "Tênis Nike Precision 6 Masculino",
+        categoryId: 1,
+        subTitle: "Tênis Nike Precision 6 Masculino",
+        discription:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
         image: "/images/product3.svg",
         title: "Mercado Livre",
         originalPrice: 319.90,
@@ -44,8 +52,10 @@ export const Products: Product[] = [
     },
     {
         id: 4, 
+        categoryId: 1,
         tag: "Desconto alto",
-        description: "Ketchup Hemmer Tradicional 1kg",
+        subTitle: "Ketchup Hemmer Tradicional 1kg",
+        discription:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
         image: "/images/product4.svg",
         title: "Americanas",
         originalPrice: 15.59,
@@ -55,8 +65,10 @@ export const Products: Product[] = [
     },
     {
         id: 5, 
+        categoryId: 1,
         tag: "Destaques",
-        description: "A1 Mini fones de ouvido sem fio Bluetooth",
+        subTitle: "A1 Mini fones de ouvido sem fio Bluetooth",
+        discription:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
         image: "/images/product1.svg",
         title: "Amazon",
         originalPrice: 92.44,
@@ -66,7 +78,9 @@ export const Products: Product[] = [
     },
     {
         id: 6, 
-        description: "Fritadeira Elétrica Sem Óleo ",
+        categoryId: 1,
+        subTitle: "Fritadeira Elétrica Sem Óleo ",
+        discription:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
         image: "/images/product2.svg",
         title: "Casas Bahia",
         originalPrice: 209.00,
@@ -76,7 +90,9 @@ export const Products: Product[] = [
     },
     {
         id: 7,
-        description: "Tênis Nike Precision 6 Masculino",
+        categoryId: 1,
+        subTitle: "Tênis Nike Precision 6 Masculino",
+        discription:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
         image: "/images/product3.svg",
         title: "Mercado Livre",
         originalPrice: 319.90,
@@ -86,8 +102,10 @@ export const Products: Product[] = [
     },
     {
         id: 8,
+        categoryId: 1,
         tag: "Desconto alto",
-        description: "Ketchup Hemmer Tradicional 1kg",
+        subTitle: "Ketchup Hemmer Tradicional 1kg",
+        discription:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
         image: "/images/product4.svg",
         title: "Americanas",
         originalPrice: 15.59,
@@ -97,8 +115,10 @@ export const Products: Product[] = [
     },
     {
         id: 9,
+        categoryId: 1,
         tag: "Destaques",
-        description: "A1 Mini fones de ouvido sem fio Bluetooth",
+        subTitle: "A1 Mini fones de ouvido sem fio Bluetooth",
+        discription:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
         image: "/images/product1.svg",
         title: "Amazon",
         originalPrice: 92.44,
@@ -108,7 +128,9 @@ export const Products: Product[] = [
     },
     {
         id: 10,
-        description: "Fritadeira Elétrica Sem Óleo EOS Chef Gourmet...",
+        categoryId: 1,
+        subTitle: "Fritadeira Elétrica Sem Óleo EOS Chef Gourmet...",
+        discription:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
         image: "/images/product2.svg",
         title: "Casas Bahia",
         originalPrice: 209.00,
@@ -118,7 +140,9 @@ export const Products: Product[] = [
     },
     {
         id: 1,
-        description: "Tênis Nike Precision 6 Masculino",
+        categoryId: 1,
+        subTitle: "Tênis Nike Precision 6 Masculino",
+        discription:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
         image: "/images/product3.svg",
         title: "Mercado Livre",
         originalPrice: 319.90,
@@ -128,8 +152,10 @@ export const Products: Product[] = [
     },
     {
         id: 12,
+        categoryId: 1,
         tag: "Desconto alto",
-        description: "Ketchup Hemmer Tradicional 1kg",
+        subTitle: "Ketchup Hemmer Tradicional 1kg",
+        discription:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
         image: "/images/product4.svg",
         title: "Americanas",
         originalPrice: 15.59,
@@ -139,8 +165,10 @@ export const Products: Product[] = [
     },
     {
         id: 13,
+        categoryId: 1,
         tag: "Destaques",
-        description: "A1 Mini fones de ouvido sem fio Bluetooth",
+        subTitle: "A1 Mini fones de ouvido sem fio Bluetooth",
+        discription:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
         image: "/images/product1.svg",
         title: "Amazon",
         originalPrice: 92.44,
@@ -150,7 +178,9 @@ export const Products: Product[] = [
     },
     {
         id: 14,
-        description: "Fritadeira Elétrica Sem Óleo EOS Chef Gourmet...",
+        categoryId: 1,
+        subTitle: "Fritadeira Elétrica Sem Óleo EOS Chef Gourmet...",
+        discription:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
         image: "/images/product2.svg",
         title: "Casas Bahia",
         originalPrice: 209.00,
@@ -160,7 +190,9 @@ export const Products: Product[] = [
     },
     {
         id: 15,
-        description: "Tênis Nike Precision 6 Masculino",
+        categoryId: 1,
+        subTitle: "Tênis Nike Precision 6 Masculino",
+        discription:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
         image: "/images/product3.svg",
         title: "Mercado Livre",
         originalPrice: 319.90,
@@ -170,8 +202,10 @@ export const Products: Product[] = [
     },
     {
         id: 16,
+        categoryId: 1,
         tag: "Desconto alto",
-        description: "Ketchup Hemmer Tradicional 1kg",
+        subTitle: "Ketchup Hemmer Tradicional 1kg",
+        discription:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
         image: "/images/product4.svg",
         title: "Americanas",
         originalPrice: 15.59,
