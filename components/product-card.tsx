@@ -24,10 +24,11 @@ type Props = {
     addedtime: string
     showtype: ProductCardShowType
     tag?: string
+    comments: number
     className?: string
 }
 
-function ProductCard({ id, categoryId, tag, image, title, discription, orginalPrice, discountPrice, likes, addedtime, showtype, subTitle, className }: Props) {
+function ProductCard({ id, categoryId, tag, image, title, discription, orginalPrice, discountPrice, likes, addedtime, showtype, subTitle, comments, className }: Props) {
     let width;
     let display;
     let isShort;
@@ -103,7 +104,7 @@ function ProductCard({ id, categoryId, tag, image, title, discription, orginalPr
                     <div className={display + ' relative '}>
                         <div className=' flex justify-center'>
                             <button onClick={() => router.replace(`/category/${categoryId}/product/${id}`)}>
-                                <Image src={image} alt={title} width={imageWidth} height={imageHeight} className={`${showtype === ProductCardShowType.large ? ' my-8' : '  '}`}/>
+                                <Image src={image} alt={title} width={imageWidth} height={imageHeight} className={`${showtype === ProductCardShowType.large ? ' my-8 mr-20' : '  '}`} />
                                 {
                                     tag && (
                                         <div className={bgColor + ' absolute top-0 right-2 text-white px-2 py-1 rounded-md flex ' + isShort}>
@@ -117,38 +118,50 @@ function ProductCard({ id, categoryId, tag, image, title, discription, orginalPr
                         </div>
                         <Separator className={isShort + ' my-4  '} />
                         <div className='px-4 w-full flex flex-col justify-between h-48'>
-                            <div>
+                            <div className={`${showtype === ProductCardShowType.large ? '  space-y-4 mt-4' : '  '}`}>
                                 <div className=' text-blue-500'>{title}</div>
                                 <div className={`${showtype === ProductCardShowType.large ? ' text-2xl mb-2 font-bold mt-2' : 'text-xl mb-2 '}`}> {showtype === ProductCardShowType.mini ? subTitle.slice(0, 30) + '...' : subTitle}</div>
                                 <div className={`${showtype === ProductCardShowType.large ? ' block my-4' : ' hidden '}`}>{discription}</div>
-                                <div className=' flex gap-24'>
+                                <div className=' flex gap-24 items-center'>
                                     <div>
                                         <div style={{ textDecoration: 'line-through' }}>R$ {orginalPrice}</div>
                                         <div className=' text-green-600 text-2xl font-semibold'>R$ {discountPrice}</div>
                                     </div>
-                                    <div className={`${showtype === ProductCardShowType.large ? ' flex space-x-4 ' : ' hidden '}`} >
-                                        <Button className=' rounded-full'>
-                                            Ir para a loja
+                                    <div className={`${showtype === ProductCardShowType.large ? ' flex space-x-4 text-white ' : ' hidden '}`} >
+                                        <Button className=' rounded-full flex space-x-2 px-6'>
+                                            <div>Ir para a loja</div>
+                                            <Image src="/icons/arrow-out.svg" alt={title} width={20} height={20} />
                                         </Button>
-                                        <Button className=' rounded-full'>
-                                            S
+                                        <Button className=' rounded-full p-0 border-none'>
+                                            <Image src="/icons/heart-circled.svg" alt={title} width={40} height={40} />
                                         </Button>
-                                        <Button className=' rounded-full'>
-                                            C
+                                        <Button className=' rounded-full p-0 border-none'>
+                                            <Image src="/icons/share-circled.svg" alt={title} width={40} height={40} />
                                         </Button>
                                     </div>
                                 </div>
-                                <div className={`${showtype === ProductCardShowType.large ? 'block' : ' hidden '}`}>
-                                    <Separator className=' my-8'/>
+                                <div className={`${showtype === ProductCardShowType.large ? 'block ' : ' hidden '}`}>
+                                    <Separator className=' my-8' />
 
                                     <div className='flex gap-4'>
                                         <div className='flex gap-3'>
-                                            <Image src="/icons/heart.svg" alt={title} width={20} height={20} />
+                                            <Image src="/icons/tag/recent-black.svg" alt={title} width={20} height={20} />
                                             <div>
-                                                {likes}
+                                            há {addedtime}
                                             </div>
                                         </div>
-                                        <div>há {addedtime}</div>
+                                        <div className='flex gap-3'>
+                                            <Image src="/icons/heart.svg" alt={title} width={20} height={20} />
+                                            <div>
+                                                {likes} curtidas
+                                            </div>
+                                        </div>
+                                        <div className='flex gap-3'>
+                                            <Image src="/icons/heart.svg" alt={title} width={20} height={20} />
+                                            <div>
+                                                {comments} comentários
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

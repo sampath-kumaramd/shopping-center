@@ -167,6 +167,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
                   discountPrice={product.discountPrice}
                   likes={product.likes}
                   addedtime={product.addedTime}
+                  comments={product.comment.length}
                   showtype={productView}
                 />
               ))}
@@ -195,6 +196,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
                   discountPrice={product.discountPrice}
                   likes={product.likes}
                   addedtime={product.addedTime}
+                  comments={product.comment.length}
                   showtype={productView}
                 />
               ))}

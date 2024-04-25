@@ -17,6 +17,10 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Input } from '@/components/ui/input';
+import CommentCard from '@/components/comment-card';
+
 
 
 interface CategoryPageProps {
@@ -33,7 +37,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
 
   return (
     <div className=' h-auto lg:mx-32 md:mx-16 mx-8 py-12'>
-      <Custombreadcrumb title_1='Categorias' title_2={category?.title} title_3={product.title} href_2={`/category/${category?.id}`} href_1={`/category/${category?.id}`} href_3={`/category/${category?.id}/${product?.id}`} />
+      <Custombreadcrumb title_1='Categorias' title_2={category?.title} title_3={product.subTitle} href_2={`/category/${category?.id}`} href_1={`/category/${category?.id}`} href_3={`/category/${category?.id}/${product?.id}`} />
 
       <ProductCard
         id={product.id}
@@ -48,18 +52,19 @@ export default function CategoryPage({ params }: CategoryPageProps) {
         discountPrice={product.discountPrice}
         likes={product.likes}
         addedtime={product.addedTime}
+        comments={product.comment.length}
         showtype={ProductCardShowType.large}
         className=' my-8'
       />
-      <div className=' w-full  justify-between grid grid-cols-12 mt-16'>
-        <div className='hidden sm:block col-span-8 xl:col-span-9'>
+      <div className=' w-full  justify-between grid grid-cols-12 mt-16 gap-6'>
+        <div className='hidden sm:block col-span-8 xl:col-span-9 space-y-8'>
 
           <Card>
             <CardContent className=' p-4'>
               <Tabs defaultValue="A promoção" className="w-full">
-                <TabsList>
-                  <TabsTrigger value="A promoção">A promoção</TabsTrigger>
-                  <TabsTrigger value="Informação do Produto">Informação do Produto</TabsTrigger>
+                <TabsList className=' bg-white'>
+                  <TabsTrigger value="A promoção" className=' bg-white'>A promoção</TabsTrigger>
+                  <TabsTrigger value="Informação do Produto" className=' bg-white'>Informação do Produto</TabsTrigger>
                 </TabsList>
                 <TabsContent value="A promoção">
                   <ul style={{ listStyleType: 'disc' }} className=' ml-11 space-y-1'>
@@ -74,6 +79,44 @@ export default function CategoryPage({ params }: CategoryPageProps) {
                 <TabsContent value="Informação do Produto">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Metus dictum at tempor commodo ullamcorper a lacus vestibulum sed. Porta non pulvinar neque laoreet suspendisse interdum consectetur. Vel fringilla est ullamcorper eget. Posuere morbi leo urna molestie at elementum eu facilisis sed. Sapien et ligula ullamcorper malesuada proin libero nunc consequat. Ipsum consequat nisl vel pretium lectus quam id leo. Semper risus in hendrerit gravida rutrum. Quam adipiscing vitae proin sagittis. Tempor commodo ullamcorper a lacus vestibulum. Integer vitae justo eget magna. Ac turpis egestas maecenas pharetra convallis posuere morbi leo.
                   Egestas sed sed risus pretium quam vulputate. Lorem sed risus ultricies tristique nulla aliquet enim tortor at. Ipsum dolor sit amet consectetur adipiscing elit ut aliquam. Vulputate mi sit amet mauris commodo quis imperdiet. </TabsContent>
               </Tabs>
+
+            </CardContent>
+          </Card>
+
+
+          <Card>
+            <CardContent className="rounded-xl p-5  space-y-6">
+              <div className='flex space-x-4'>
+                <Image src="/icons/tag/chat-circle.svg" alt='ds' width={20} height={20} /> <div className=' font-bold text-xl'>Comentários ({product.comment.length}) </div>
+              </div>
+
+              <div className=' flex space-x-4'>
+                <Avatar>
+                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+                <div className="flex w-full items-center space-x-2">
+                  <Input type="text" placeholder="Faça um comentário..." />
+                  <Button variant="outline" type="submit" className=' border-primary border-2 rounded-full'>Comentar</Button>
+                </div>
+              </div>
+              <Separator />
+
+              <div>Todos os comentários</div>
+              {product.comment.map((comment) => (
+                <CommentCard
+                  key={comment.id}
+                  userName={comment.userName}
+                  userImage={comment.userImage}
+                  comment={comment.comment}
+                />
+              ))
+              }
+              <CommentCard
+                userName='Carlos Nascimento'
+                userImage='https://github.com/shadcn.png'
+                comment='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+              />
 
             </CardContent>
           </Card>
@@ -98,6 +141,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
                   discountPrice={product.discountPrice}
                   likes={product.likes}
                   addedtime={product.addedTime}
+                  comments={product.comment.length}
                   showtype={ProductCardShowType.mini}
                 />
               ))}
@@ -135,6 +179,20 @@ export default function CategoryPage({ params }: CategoryPageProps) {
             </div>
           </div>
           <SocialMediaGroups />
+
+          <Card>
+            <CardContent className="items-center bg-primary rounded-xl  flex flex-col justify-center h-44 p-0 text-white space-y-4">
+              <div>
+                <div className=' text-gray-300 text-center'>R$ {product.originalPrice}</div>
+                <div className=' text-white text-4xl font-semibold'>R$ {product.discountPrice}</div>
+              </div>
+              <div><Button className=' rounded-full flex space-x-2 px-16 bg-white text-primary'>
+                <div>Ir para a loja</div>
+                <Image src="/icons/arrow-out-red.svg" alt='icon' width={20} height={20} />
+              </Button></div>
+            </CardContent>
+          </Card>
+
         </div>
 
       </div>

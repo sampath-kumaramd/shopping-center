@@ -121,6 +121,7 @@ export default function Home() {
                   discountPrice={product.discountPrice}
                   likes={product.likes}
                   addedtime={product.addedTime}
+                  comments={product.comment.length}
                   showtype={ProductCardShowType.mini}
                 />
               </div>
@@ -190,6 +191,7 @@ export default function Home() {
                   discountPrice={product.discountPrice}
                   likes={product.likes}
                   addedtime={product.addedTime}
+                  comments={product.comment.length}
                   showtype={productView}
                 />
               ))}
@@ -218,6 +220,7 @@ export default function Home() {
                   discountPrice={product.discountPrice}
                   likes={product.likes}
                   addedtime={product.addedTime}
+                  comments={product.comment.length}
                   showtype={productView}
                 />
               ))}
