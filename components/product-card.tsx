@@ -106,7 +106,7 @@ function ProductCard({ id, categoryId, tag, image, title, discription, orginalPr
 
     return (
         <>
-            <Card className={width + ' ' + className + ' group'}>
+            <Card className={width + ' ' + className + ' group'}  onClick={() => router.replace(`/category/${categoryId}/product/${id}`)}>
                 <CardContent className='my-4 p-0'>
                     <div className={display + ' relative '}>
                         <div className=' flex justify-center'>

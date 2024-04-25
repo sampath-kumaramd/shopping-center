@@ -6,9 +6,10 @@ import { Input } from "./ui/input"
 import { useForm } from "react-hook-form"
 import { Button } from "./ui/button"
 import { Search } from "lucide-react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import {
     Dialog,
+    DialogClose,
     DialogContent,
     DialogDescription,
     DialogHeader,
@@ -18,7 +19,6 @@ import {
 import Filter from "./filter"
 import RangeSlider from "./range-slider"
 import { Separator } from "./ui/separator"
-import { Store, Stores } from "@/bin/stores"
 import { Checkbox } from "./ui/checkbox"
 import { Categories, Category } from "@/bin/categories"
 import { ButtonLabels } from "@/bin/filter-button-labels"
@@ -27,22 +27,40 @@ import { useRouter } from "next/navigation"
 
 
 function Header() {
+    const router = useRouter();
+    const form = useForm()
+
     const [isSearchVisible, setSearchVisible] = useState(false)
+    const [isDialogOpen, setIsDialogOpen] = useState(true);
+
+    const handleCategoryClick = (categoryId: number) => {
+        // Close the dialog by setting isDialogOpen to false
+        setIsDialogOpen(false);
+        // Navigate to the category page
+        router.push(`/category/${categoryId}`);
+    };
+
 
     const toggleSearch = () => {
         setSearchVisible(!isSearchVisible)
     }
-    const router = useRouter();
-    const form = useForm()
+
+    const toggleIsDialogOpen = () => {
+        setIsDialogOpen(true);
+    }
+
+ 
+    
+   
     return (
         <div className="sticky top-0 z-50">
-        <div className="bg-primary h-24 flex items-center">
-            <div className=' 2xl:mx-32 xl:mx-20 lg:mx-16 md:mx-4  flex justify-between h-auto w-full'>
-                <div className="flex justify-between items-center w-80 sm:w-96 mx-6 gap-4">
-                    <button onClick={()=> router.push('/')}>
+            <div className="bg-primary h-24 flex items-center">
+                <div className=' 2xl:mx-32 xl:mx-20 lg:mx-16 md:mx-4  flex justify-between h-auto w-full'>
+                    <div className="flex justify-between items-center w-80 sm:w-96 mx-6 gap-4">
+                        <button onClick={() => router.push('/')}>
 
-                        <Image src='/icons/logo.png' alt='logo' width={200} height={42} className={`sm:block block ${isSearchVisible ? 'hidden' : ''}`} />
-                    </button>
+                            <Image src='/icons/logo.png' alt='logo' width={200} height={42} className={`sm:block block ${isSearchVisible ? 'hidden' : ''}`} />
+                        </button>
                         <div className="flex space-x-4 w-96 md:w-80">
                             <button onClick={toggleSearch}>
                                 <Search color="#ffffff" width={40} className={`sm:hidden  ${isSearchVisible ? 'hidden' : ''}`} />
@@ -51,97 +69,125 @@ function Header() {
                                 <Icons.chevronLeft color="#ffffff" width={40} className={`sm:hidden  ${isSearchVisible ? '' : 'hidden'}`} />
                             </button>
                             <Input placeholder="O que está procurando?" className={`w-full border-gray-200 rounded-full sm:hidden ${isSearchVisible ? '' : 'hidden'}`} />
+
                             <Dialog>
-                                <DialogTrigger className={`sm:block block text-white focus:border-none ${isSearchVisible ? 'hidden' : ''}`}>
+                                <DialogTrigger className={`sm:block block text-white focus:border-none ${isSearchVisible ? 'hidden' : ''}`} onClick={toggleIsDialogOpen}>
                                     <div className="flex gap-2">Categorias <Icons.ChevronDown /></div>
                                 </DialogTrigger>
-                                <DialogContent className="w-10/12 bg-[#f7ede9] sm:bg-white h-screen sm:h-auto sm:-mt-56 sm:-ml-96 sm:overflow-auto overflow-y-scroll">
-                                    <DialogHeader>
-                                        <DialogTitle className="mb-8">
-                                            <div className=" hidden sm:block">Todas as categorias</div>
-                                            <div className=" sm:hidden block">Filtrar por</div>
-                                        </DialogTitle>
-                                        <DialogDescription>
-                                            <div className="hidden sm:flex justify-evenly">
-                                                <div>
-                                                    {Categories.slice(0, 4).map((category: Category) => {
-                                                        const CategoryComponent = () => (
-                                                            <button key={category.id} className="flex items-center gap-4" onClick={() => router.push(`/category/${category.id}`)}>
-                                                                <div className="w-9 h-9  flex items-center justify-center">
-                                                                    <Image
-                                                                        src={category.src}
-                                                                        alt="About Us"
-                                                                        width={22}
-                                                                        height={22}
-                                                                    />
-                                                                </div>
-                                                                <div>
-                                                                    <h2 className="text-sm font-medium py-4 items-center">{category.title}</h2>
-                                                                </div>
-                                                            </button>
-                                                        );
-                                                        CategoryComponent.displayName = `CategoryComponent${category.id}`;
-                                                        return <CategoryComponent key={category.id} />;
-                                                    })}
-                                                </div>
-                                                <div className="">
-                                                    {Categories.slice(4, 8).map((category: Category) => {
-                                                        const CategoryComponent = () => (
-                                                            <button key={category.id} className="flex items-center gap-4" onClick={() => router.push(`/category/${category.id}`)}>
-                                                                <div className="w-9 h-9  flex items-center justify-center">
-                                                                    <Image
-                                                                        src={category.src}
-                                                                        alt="About Us"
-                                                                        width={22}
-                                                                        height={22}
-                                                                    />
-                                                                </div>
-                                                                <div>
-                                                                    <h2 className="text-sm font-medium py-4 items-center">{category.title}</h2>
-                                                                </div>
-                                                            </button>
-                                                        );
-                                                        CategoryComponent.displayName = `CategoryComponent${category.id}`;
-                                                        return <CategoryComponent key={category.id} />;
-                                                    })}
-                                                </div>
+                                {isDialogOpen && (
 
-                                            </div>
-                                            <div className=" block sm:hidden space-y-4 text-left ">
-                                                <div className=" font-bold text-xl">Itens</div>
-                                                {ButtonLabels.map(label => (
-                                                    <div key={label.id}>
-                                                        <button>
-                                                            {label.title}
-                                                        </button>
-                                                    </div>
-                                                ))}
-
-                                            </div>
-                                            <div className=" sm:hidden flex flex-col">
-                                                <div className="flex flex-col rounded-lg  my-4 gap-2">
-                                                    <div className="text-xl font-medium text-left">Faixa de preço</div>
-                                                    <RangeSlider />
-                                                    <Separator className="my-2" />
-                                                    <div className="flex flex-col gap-2 mb-16">
-                                                        {Stores.map((category: Store, index: number) => {
-                                                            const StoreComponent = () => (
-                                                                <div key={`${category.id}-${index}`}>
-                                                                    <div className="flex gap-3">
-                                                                        <Checkbox className="border rounded-none border-black bg-white h-4 w-4 my-1" />
-                                                                        <div className="flex text-base pl-3">{category.title}</div>
+                                    <DialogContent className="w-10/12 bg-[#f7ede9] sm:bg-white h-screen sm:h-auto  mt-20 sm:-mt-56 sm:-ml-96 sm:overflow-auto overflow-y-scroll">
+                                        <DialogHeader>
+                                            <DialogTitle className="mb-8">
+                                                <div className=" hidden sm:block">Todas as categorias</div>
+                                                <div className=" sm:hidden block">Filtrar por</div>
+                                            </DialogTitle>
+                                            <DialogDescription>
+                                                <div className="hidden sm:flex justify-evenly">
+                                                    <div>
+                                                        {Categories.slice(0, 4).map((category: Category) => {
+                                                            const CategoryComponent = () => (
+                                                                <button key={category.id} className="flex items-center gap-4" onClick={() => handleCategoryClick(category.id)}>
+                                                                    <div className="w-9 h-9  flex items-center justify-center">
+                                                                        <Image
+                                                                            src={category.src}
+                                                                            alt="About Us"
+                                                                            width={22}
+                                                                            height={22}
+                                                                        />
                                                                     </div>
-                                                                </div>
+                                                                    <div>
+                                                                        <h2 className="text-sm font-medium py-4 items-center">{category.title}</h2>
+                                                                    </div>
+                                                                </button>
                                                             );
-                                                            StoreComponent.displayName = `StoreComponent${category.id}`;
-                                                            return <StoreComponent key={`${category.id}-${index}`} />;
+                                                            CategoryComponent.displayName = `CategoryComponent${category.id}`;
+                                                            return <CategoryComponent key={category.id} />;
                                                         })}
                                                     </div>
+                                                    <div className="">
+                                                        {Categories.slice(4, 8).map((category: Category) => {
+                                                            const CategoryComponent = () => (
+                                                                <button key={category.id} className="flex items-center gap-4" onClick={() => router.push(`/category/${category.id}`)}>
+                                                                    <div className="w-9 h-9  flex items-center justify-center">
+                                                                        <Image
+                                                                            src={category.src}
+                                                                            alt="About Us"
+                                                                            width={22}
+                                                                            height={22}
+                                                                        />
+                                                                    </div>
+                                                                    <div>
+                                                                        <h2 className="text-sm font-medium py-4 items-center">{category.title}</h2>
+                                                                    </div>
+                                                                </button>
+                                                            );
+                                                            CategoryComponent.displayName = `CategoryComponent${category.id}`;
+                                                            return <CategoryComponent key={category.id} />;
+                                                        })}
+                                                    </div>
+
                                                 </div>
-                                            </div>
-                                        </DialogDescription>
-                                    </DialogHeader>
-                                </DialogContent>
+                                                <div className=" block sm:hidden space-y-4 text-left ">
+                                                    <div className=" font-bold text-xl">Itens</div>
+                                                    {ButtonLabels.map(label => (
+                                                        <div key={label.id}>
+                                                            <button>
+                                                                {label.title}
+                                                            </button>
+                                                        </div>
+                                                    ))}
+
+                                                </div>
+                                                <div className=" sm:hidden flex flex-col">
+                                                    <div className="flex flex-col rounded-lg  my-4 gap-2">
+                                                        <div className="text-xl font-medium text-left">Faixa de preço</div>
+                                                        <RangeSlider />
+                                                        <Separator className="my-2" />
+                                                        <div className="flex flex-col gap-2 mb-16">
+                                                            <div className="flex gap-3">
+                                                                <Checkbox className="border rounded-none border-black bg-white h-4 w-4 my-1" />
+                                                                <div className="flex text-base pl-3">Amazon</div>
+                                                            </div>
+                                                            <div className="flex gap-3">
+                                                                <Checkbox className="border rounded-none border-black bg-white h-4 w-4 my-1" />
+                                                                <div className="flex text-base pl-3"> Americanas </div>
+                                                            </div>
+                                                            <div className="flex gap-3">
+                                                                <Checkbox className="border rounded-none border-black bg-white h-4 w-4 my-1" />
+                                                                <div className="flex text-base pl-3">Mercado Livre</div>
+                                                            </div>
+                                                            <div className="flex gap-3">
+                                                                <Checkbox className="border rounded-none border-black bg-white h-4 w-4 my-1" />
+                                                                <div className="flex text-base pl-3">Casas Bahia</div>
+                                                            </div>
+                                                            <div className="flex gap-3">
+                                                                <Checkbox className="border rounded-none border-black bg-white h-4 w-4 my-1" />
+                                                                <div className="flex text-base pl-3">Ponto</div>
+                                                            </div>
+                                                            <div className="flex gap-3">
+                                                                <Checkbox className="border rounded-none border-black bg-white h-4 w-4 my-1" />
+                                                                <div className="flex text-base pl-3">Nike</div>
+                                                            </div>
+                                                            <div className="flex gap-3">
+                                                                <Checkbox className="border rounded-none border-black bg-white h-4 w-4 my-1" />
+                                                                <div className="flex text-base pl-3">Adidas</div>
+                                                            </div>
+                                                            <div className="flex gap-3">
+                                                                <Checkbox className="border rounded-none border-black bg-white h-4 w-4 my-1" />
+                                                                <div className="flex text-base pl-3">KaBuM!</div>
+                                                            </div>
+                                                            <div className="flex gap-3">
+                                                                <Checkbox className="border rounded-none border-black bg-white h-4 w-4 my-1" />
+                                                                <div className="flex text-base pl-3">AliExpress</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </DialogDescription>
+                                        </DialogHeader>
+                                    </DialogContent>
+                                )}
                             </Dialog>
                         </div>
 

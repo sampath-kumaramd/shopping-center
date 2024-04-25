@@ -3,7 +3,6 @@ import { Categories, Category } from '@/bin/categories';
 import { CategoriesExtraDetails } from '@/bin/categories-extra-details';
 import { ButtonLabels } from '@/bin/filter-button-labels';
 import { Products } from '@/bin/products';
-import { Store, Stores } from '@/bin/stores';
 import { Custombreadcrumb } from '@/components/bread-crumb';
 import ProductCard from '@/components/product-card';
 import RangeSlider from '@/components/range-slider';
