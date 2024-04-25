@@ -79,6 +79,11 @@ const config = {
       },
     },
   },
+  variants: {
+    extend: {
+      textColor: ['responsive', 'hover', 'focus', 'group-hover'],
+    },
+  },
   plugins: [require("tailwindcss-animate")],
 } satisfies Config
 

@@ -189,10 +189,10 @@ export default function CategoryPage({ params }: CategoryPageProps) {
           <div className="hidden sm:flex flex-col">
             <div className="text-2xl font-bold">Categorias</div>
             <div className="flex flex-col bg-[#FAFAFA] rounded-lg p-8 my-4 gap-5">
-              {Categories.map((category: Category) => {
+            {Categories.map((category: Category) => {
                 const CategoryComponent = () => (
-                  <button key={category.id} className="flex gap-3" onClick={() => router.push(`/category/${category.id}`)}>
-                    <div className="w-9 h-9 bg-[#E7E7E7] rounded-full flex items-center justify-center">
+                  <button key={category.id} className="flex gap-3 group" onClick={() => router.push(`/category/${category.id}`)}>
+                    <div className="w-9 h-9 bg-[#E7E7E7] group-hover:bg-red-500 rounded-full flex items-center justify-center">
                       <Image
                         src={category.src}
                         alt="About Us"
@@ -201,7 +201,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
                       />
                     </div>
                     <div>
-                      <h2 className="text-lg font-medium py-1">{category.title}</h2>
+                      <h2 className="text-lg font-medium py-1 group-hover:text-red-500">{category.title}</h2>
                     </div>
                   </button>
                 );
