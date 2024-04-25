@@ -126,7 +126,7 @@ function ProductCard({ id, categoryId, tag, image, title, discription, orginalPr
                         <Separator className={isShort + ' my-4  '} />
                         <div className={`${showtype === ProductCardShowType.large || showtype === ProductCardShowType.largeMobile ? '  px-4 w-full flex flex-col justify-between ' : 'px-4 w-full flex flex-col justify-between h-48  '}`}>
                             <div className={`${showtype === ProductCardShowType.large ? '  space-y-4 mt-4' : '  '}`}>
-                                <div className=' text-blue-500'>{title}</div>
+                                <button onClick={() => router.replace(`/category/${categoryId}/product/${id}`)} className=' text-blue-500'>{title}</button>
                                 <div className={`${showtype === ProductCardShowType.large ? ' text-2xl mb-2 font-bold mt-2' : 'text-xl mb-2 '}`}> {showtype === ProductCardShowType.mini ? subTitle.slice(0, 30) + '...' : subTitle}</div>
                                 <div className={`${showtype === ProductCardShowType.large ? ' block my-4' : ' hidden '}`}>{discription}</div>
                                 <div className=' flex gap-24 items-center'>
@@ -198,27 +198,27 @@ function ProductCard({ id, categoryId, tag, image, title, discription, orginalPr
                                                     há {addedtime}
                                                 </div>
                                             </div>
-                                           <div className=' flex gap-4 items-center'>
-                                           <div className='flex gap-3'>
-                                                <Image src="/icons/tag/chat-circle.svg" alt={title} width={20} height={20} />
-                                                <div>
-                                                    {comments}
+                                            <div className=' flex gap-4 items-center'>
+                                                <div className='flex gap-3'>
+                                                    <Image src="/icons/tag/chat-circle.svg" alt={title} width={20} height={20} />
+                                                    <div>
+                                                        {comments}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div className='flex gap-3'>
-                                                <Image src="/icons/heart.svg" alt={title} width={20} height={20} />
-                                                <div>
-                                                    {likes}
+                                                <div className='flex gap-3'>
+                                                    <Image src="/icons/heart.svg" alt={title} width={20} height={20} />
+                                                    <div>
+                                                        {likes}
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <Button className='flex gap-3' variant="outline" >
-                                                <Image src="/icons/share-network.svg" alt={title} width={20} height={20} />
-                                                <div>
-                                                    Compartilhar
-                                                </div>
-                                            </Button>
-                                           </div>
+                                                <Button className='flex gap-3' variant="outline" >
+                                                    <Image src="/icons/share-network.svg" alt={title} width={20} height={20} />
+                                                    <div>
+                                                        Compartilhar
+                                                    </div>
+                                                </Button>
+                                            </div>
 
                                         </div>
                                     </div>

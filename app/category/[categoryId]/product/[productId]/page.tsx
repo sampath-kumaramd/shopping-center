@@ -218,7 +218,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
                 <div className=' text-gray-300 text-center'>R$ {product.originalPrice}</div>
                 <div className=' text-white text-4xl font-semibold'>R$ {product.discountPrice}</div>
               </div>
-              <div><Button className=' rounded-full flex space-x-2 px-16 bg-white text-primary'>
+              <div><Button className=' rounded-full flex space-x-2 px-16 bg-white hover:bg-white text-primary'>
                 <div>Ir para a loja</div>
                 <Image src="/icons/arrow-out-red.svg" alt='icon' width={20} height={20} />
               </Button></div>
