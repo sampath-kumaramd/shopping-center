@@ -55,7 +55,7 @@ function Header() {
                                 <DialogTrigger className={`sm:block block text-white focus:border-none ${isSearchVisible ? 'hidden' : ''}`}>
                                     <div className="flex gap-2">Categorias <Icons.ChevronDown /></div>
                                 </DialogTrigger>
-                                <DialogContent className=" sticky !top-[10vh] right-40 sm:left-96 sm:top-56 w-10/12 bg-[#f7ede9] sm:bg-white h-screen overflow-y-scroll">
+                                <DialogContent className="w-10/12 bg-[#f7ede9] sm:bg-white h-screen sm:h-auto sm:-mt-56 sm:-ml-96 sm:overflow-auto overflow-y-scroll">
                                     <DialogHeader>
                                         <DialogTitle className="mb-8">
                                             <div className=" hidden sm:block">Todas as categorias</div>
@@ -66,7 +66,7 @@ function Header() {
                                                 <div>
                                                     {Categories.slice(0, 4).map((category: Category) => {
                                                         const CategoryComponent = () => (
-                                                            <button key={category.id} className="flex items-center gap-4">
+                                                            <button key={category.id} className="flex items-center gap-4" onClick={() => router.push(`/category/${category.id}`)}>
                                                                 <div className="w-9 h-9  flex items-center justify-center">
                                                                     <Image
                                                                         src={category.src}
@@ -87,7 +87,7 @@ function Header() {
                                                 <div className="">
                                                     {Categories.slice(4, 8).map((category: Category) => {
                                                         const CategoryComponent = () => (
-                                                            <button key={category.id} className="flex items-center gap-4">
+                                                            <button key={category.id} className="flex items-center gap-4" onClick={() => router.push(`/category/${category.id}`)}>
                                                                 <div className="w-9 h-9  flex items-center justify-center">
                                                                     <Image
                                                                         src={category.src}
