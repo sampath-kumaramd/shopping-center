@@ -22,6 +22,7 @@ import { Store, Stores } from "@/bin/stores"
 import { Checkbox } from "./ui/checkbox"
 import { Categories, Category } from "@/bin/categories"
 import { ButtonLabels } from "@/bin/filter-button-labels"
+import { useRouter } from "next/navigation"
 
 
 
@@ -31,14 +32,17 @@ function Header() {
     const toggleSearch = () => {
         setSearchVisible(!isSearchVisible)
     }
-
+    const router = useRouter();
     const form = useForm()
     return (
         <div className="sticky top-0 z-50">
         <div className="bg-primary h-24 flex items-center">
             <div className=' 2xl:mx-32 xl:mx-20 lg:mx-16 md:mx-4  flex justify-between h-auto w-full'>
                 <div className="flex justify-between items-center w-80 sm:w-96 mx-6 gap-4">
+                    <button onClick={()=> router.push('/')}>
+
                         <Image src='/icons/logo.png' alt='logo' width={200} height={42} className={`sm:block block ${isSearchVisible ? 'hidden' : ''}`} />
+                    </button>
                         <div className="flex space-x-4 w-96 md:w-80">
                             <button onClick={toggleSearch}>
                                 <Search color="#ffffff" width={40} className={`sm:hidden  ${isSearchVisible ? 'hidden' : ''}`} />

@@ -63,6 +63,13 @@ function ProductCard({ id, categoryId, tag, image, title, discription, orginalPr
             display = 'flex';
             isShort = 'hidden';
             break;
+        case ProductCardShowType.largeMobile:
+            imageWidth = 400;
+            imageHeight = 400;
+            width = 'w-full';
+            display = 'block';
+            isShort = 'hidden';
+            break;
         default:
             imageWidth = 200;
             imageHeight = 200;
@@ -117,7 +124,7 @@ function ProductCard({ id, categoryId, tag, image, title, discription, orginalPr
 
                         </div>
                         <Separator className={isShort + ' my-4  '} />
-                        <div className='px-4 w-full flex flex-col justify-between h-48'>
+                        <div className={`${showtype === ProductCardShowType.large || showtype === ProductCardShowType.largeMobile ? '  px-4 w-full flex flex-col justify-between ' : 'px-4 w-full flex flex-col justify-between h-48  '}`}>
                             <div className={`${showtype === ProductCardShowType.large ? '  space-y-4 mt-4' : '  '}`}>
                                 <div className=' text-blue-500'>{title}</div>
                                 <div className={`${showtype === ProductCardShowType.large ? ' text-2xl mb-2 font-bold mt-2' : 'text-xl mb-2 '}`}> {showtype === ProductCardShowType.mini ? subTitle.slice(0, 30) + '...' : subTitle}</div>
@@ -147,7 +154,7 @@ function ProductCard({ id, categoryId, tag, image, title, discription, orginalPr
                                         <div className='flex gap-3'>
                                             <Image src="/icons/tag/recent-black.svg" alt={title} width={20} height={20} />
                                             <div>
-                                            há {addedtime}
+                                                há {addedtime}
                                             </div>
                                         </div>
                                         <div className='flex gap-3'>
@@ -157,7 +164,7 @@ function ProductCard({ id, categoryId, tag, image, title, discription, orginalPr
                                             </div>
                                         </div>
                                         <div className='flex gap-3'>
-                                            <Image src="/icons/heart.svg" alt={title} width={20} height={20} />
+                                            <Image src="/icons/tag/chat-circle.svg" alt={title} width={20} height={20} />
                                             <div>
                                                 {comments} comentários
                                             </div>
@@ -166,7 +173,7 @@ function ProductCard({ id, categoryId, tag, image, title, discription, orginalPr
                                 </div>
                             </div>
                             <div className=' flex justify-between mt-2 items-center text-gray-400'>
-                                {(showtype !== ProductCardShowType.mini && showtype !== ProductCardShowType.large) && (
+                                {(showtype !== ProductCardShowType.mini && showtype !== ProductCardShowType.large && showtype !== ProductCardShowType.largeMobile) && (
                                     <>
                                         <div>há {addedtime}</div>
                                         <div className='flex gap-3 '>
@@ -176,6 +183,46 @@ function ProductCard({ id, categoryId, tag, image, title, discription, orginalPr
                                             </div>
                                         </div>
                                     </>
+                                )}
+                                {showtype === ProductCardShowType.largeMobile && (
+                                    <div className=' w-full flex flex-col justify-center '>
+                                        <Button className=' rounded-full flex space-x-2 px-6 py-4'>
+                                            <div>Ir para a loja</div>
+                                            <Image src="/icons/arrow-out.svg" alt={title} width={20} height={20} />
+                                        </Button>
+                                        <Separator className='my-4' />
+                                        <div className='flex  justify-between items-center'>
+                                            <div className='flex gap-3'>
+                                                <Image src="/icons/tag/recent-black.svg" alt={title} width={20} height={20} />
+                                                <div>
+                                                    há {addedtime}
+                                                </div>
+                                            </div>
+                                           <div className=' flex gap-4 items-center'>
+                                           <div className='flex gap-3'>
+                                                <Image src="/icons/tag/chat-circle.svg" alt={title} width={20} height={20} />
+                                                <div>
+                                                    {comments}
+                                                </div>
+                                            </div>
+                                            <div className='flex gap-3'>
+                                                <Image src="/icons/heart.svg" alt={title} width={20} height={20} />
+                                                <div>
+                                                    {likes}
+                                                </div>
+                                            </div>
+
+                                            <Button className='flex gap-3' variant="outline" >
+                                                <Image src="/icons/share-network.svg" alt={title} width={20} height={20} />
+                                                <div>
+                                                    Compartilhar
+                                                </div>
+                                            </Button>
+                                           </div>
+
+                                        </div>
+                                    </div>
+
                                 )}
                             </div>
                         </div>

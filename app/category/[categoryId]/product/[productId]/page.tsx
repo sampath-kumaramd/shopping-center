@@ -15,7 +15,7 @@ import { Separator } from '@/components/ui/separator';
 import { ProductCardShowType } from '@/lib/enums/product-card-show';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Input } from '@/components/ui/input';
@@ -33,10 +33,42 @@ export default function CategoryPage({ params }: CategoryPageProps) {
   let product = Products[0];
   let category = Categories.find(c => c.id === categoryId);
 
+  const [productCount, setProductCount] = useState<number>(0);
+  const [productView, setProductView] = useState<ProductCardShowType>(ProductCardShowType.large);
+
+  const handleResize = () => {
+    if (window.innerWidth <= 768) {
+      setProductView(ProductCardShowType.largeMobile);
+      setProductCount(1);
+    } else if (window.innerWidth <= 900) {
+      setProductCount(1);
+      setProductView(ProductCardShowType.large);
+    } else if (window.innerWidth <= 1300) {
+      setProductCount(2);
+      setProductView(ProductCardShowType.large);
+    } else if (window.innerWidth <= 1700) {
+      setProductCount(3);
+      setProductView(ProductCardShowType.large);
+    } else {
+      setProductCount(4);
+      setProductView(ProductCardShowType.large);
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    }
+  }, []);
+
+
+
   const router = useRouter();
 
   return (
-    <div className=' h-auto lg:mx-32 md:mx-16 mx-8 py-12'>
+    <div className=' h-auto 2xl:mx-32 xl:mx-20 lg:mx-16 mx-4 py-12'>
       <Custombreadcrumb title_1='Categorias' title_2={category?.title} title_3={product.subTitle} href_2={`/category/${category?.id}`} href_1={`/category/${category?.id}`} href_3={`/category/${category?.id}/${product?.id}`} />
 
       <ProductCard
@@ -53,11 +85,11 @@ export default function CategoryPage({ params }: CategoryPageProps) {
         likes={product.likes}
         addedtime={product.addedTime}
         comments={product.comment.length}
-        showtype={ProductCardShowType.large}
+        showtype={productView}
         className=' my-8'
       />
-      <div className=' w-full  justify-between grid grid-cols-12 mt-16 gap-6'>
-        <div className='hidden sm:block col-span-8 xl:col-span-9 space-y-8'>
+      <div className=' w-full  justify-between sm:grid sm:grid-cols-12 mt-8 gap-16'>
+        <div className='sm:col-span-8 xl:col-span-9 space-y-8'>
 
           <Card>
             <CardContent className=' p-4'>
@@ -126,7 +158,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
           </div>
           <div className=' flex space-x-4'>
             {Products
-              .slice(0, 3)
+              .slice(0, productCount)
               .map((product) => (
                 <ProductCard
                   id={product.id}
@@ -148,18 +180,18 @@ export default function CategoryPage({ params }: CategoryPageProps) {
           </div>
         </div>
 
-        <div className='hidden sm:block col-span-4 xl:col-span-3 space-y-8'>
+        <div className='mt-10 sm:mt-0 sm:block sm:col-span-4 xl:col-span-3 space-y-8'>
           <Card>
             <CardContent className="border-dashed  border-2 items-center flex justify-center h-52 p-0">
               ADS
             </CardContent>
           </Card>
-          <div className="flex flex-col">
+          <div className="hidden sm:flex flex-col">
             <div className="text-2xl font-bold">Categorias</div>
             <div className="flex flex-col bg-[#FAFAFA] rounded-lg p-8 my-4 gap-5">
               {Categories.map((category: Category) => {
                 const CategoryComponent = () => (
-                  <button key={category.id} className="flex gap-3" onClick={() => router.push(`category/${category.id}`)}>
+                  <button key={category.id} className="flex gap-3" onClick={() => router.push(`/category/${category.id}`)}>
                     <div className="w-9 h-9 bg-[#E7E7E7] rounded-full flex items-center justify-center">
                       <Image
                         src={category.src}
@@ -180,7 +212,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
           </div>
           <SocialMediaGroups />
 
-          <Card>
+          <Card className=' hidden sm:block'>
             <CardContent className="items-center bg-primary rounded-xl  flex flex-col justify-center h-44 p-0 text-white space-y-4">
               <div>
                 <div className=' text-gray-300 text-center'>R$ {product.originalPrice}</div>

@@ -64,7 +64,7 @@ export default function Home() {
   }
   const handleResize = () => {
     if (window.innerWidth <= 768) {
-      setProductView(ProductCardShowType.mini);
+      setProductView(ProductCardShowType.long);
     } else {
       setProductView(ProductCardShowType.short);
     }
@@ -233,7 +233,7 @@ export default function Home() {
             <div className="flex flex-col bg-[#FAFAFA] rounded-lg p-8 my-4 gap-5">
               {Categories.map((category: Category) => {
                 const CategoryComponent = () => (
-                  <button key={category.id} className="flex gap-3" onClick={() => router.push(`category/${category.id}`)}>
+                  <button key={category.id} className="flex gap-3" onClick={() => router.push(`/category/${category.id}`)}>
                     <div className="w-9 h-9 bg-[#E7E7E7] rounded-full flex items-center justify-center">
                       <Image
                         src={category.src}

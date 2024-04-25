@@ -14,7 +14,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Separator } from '@/components/ui/separator';
 import { ProductCardShowType } from '@/lib/enums/product-card-show';
 import Image from 'next/image';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 interface CategoryPageProps {
   params: { categoryId: string };
@@ -39,6 +39,21 @@ export default function CategoryPage({ params }: CategoryPageProps) {
     setProductView(view);
   }
 
+  const handleResize = () => {
+    if (window.innerWidth <= 768) {
+      setProductView(ProductCardShowType.long);
+    } else {
+      setProductView(ProductCardShowType.short);
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    }
+  }, []);
 
   return (
     <div className=' h-auto lg:mx-32 md:mx-16 mx-8 py-12'>
@@ -61,9 +76,9 @@ export default function CategoryPage({ params }: CategoryPageProps) {
         {category?.description}
       </div>
 
-      <div className=' w-full  justify-between grid grid-cols-12 mt-16'>
-        <div className='hidden sm:block col-span-4 xl:col-span-3 space-y-8'>
-          <span className=' text-2xl font-bold'>Filtros</span>
+      <div className=' w-full  justify-between grid grid-cols-12 mt-16 gap-8'>
+        <div className='hidden sm:block col-span-4 xl:col-span-3'>
+          <div className=' -mt-8 text-2xl font-bold'>Filtros</div>
           <Card >
             <CardContent className='bg-[#FAFAFA]'>
 
@@ -80,7 +95,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
 
 
 
-          <Card>
+          <Card className='mt-8'>
             <CardContent className='bg-[#FAFAFA]'>
               <div className="flex flex-col">
                 <div className="flex flex-col   rounded-lg px-8 py-0 my-4 gap-2">
