@@ -13,6 +13,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Separator } from '@/components/ui/separator';
 import { ProductCardShowType } from '@/lib/enums/product-card-show';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 
 interface CategoryPageProps {
@@ -54,6 +55,8 @@ export default function CategoryPage({ params }: CategoryPageProps) {
     }
   }, []);
 
+  const router = useRouter();
+
   return (
     <div className=' h-auto lg:mx-32 md:mx-16 mx-8 py-12'>
       <Custombreadcrumb title_1='Categorias' title_2={category?.title} href_2={`/category/${category?.id}`} href_1={`/category/1`} />
@@ -84,7 +87,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
               <div className=" font-bold text-xl pt-4">Itens</div>
               {ButtonLabels.map(label => (
                 <div key={label.id} className=' my-2'>
-                  <button>
+                  <button  onClick={() => router.push(`/category/${label.id}`)}>
                     {label.title}
                   </button>
                 </div>

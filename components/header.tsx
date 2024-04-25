@@ -108,7 +108,7 @@ function Header() {
                                                     <div className="">
                                                         {Categories.slice(4, 8).map((category: Category) => {
                                                             const CategoryComponent = () => (
-                                                                <button key={category.id} className="flex items-center gap-4" onClick={() => router.push(`/category/${category.id}`)}>
+                                                                <button key={category.id} className="flex items-center gap-4" onClick={() => handleCategoryClick(category.id)}>
                                                                     <div className="w-9 h-9  flex items-center justify-center">
                                                                         <Image
                                                                             src={category.src}
@@ -131,7 +131,7 @@ function Header() {
                                                 <div className=" block sm:hidden space-y-4 text-left ">
                                                     <div className=" font-bold text-xl">Itens</div>
                                                     {ButtonLabels.map(label => (
-                                                        <div key={label.id}>
+                                                        <div key={label.id} onClick={() => handleCategoryClick(label.id)}>
                                                             <button>
                                                                 {label.title}
                                                             </button>
