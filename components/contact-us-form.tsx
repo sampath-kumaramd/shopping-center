@@ -5,7 +5,6 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-// zod schema for form validation
 const formSchema = z.object({
   firstName: z.string().refine((value) => /^[A-Za-z\s]+$/.test(value), {
     message: "O nome completo deve conter apenas letras.",
@@ -44,12 +43,11 @@ function ContactUsForm() {
   });
 
   function onSubmit(values: any) {
-    // console.log(values);
   }
   return (
     <>
       <Form {...form} >
-        <form onSubmit={form.handleSubmit(onSubmit )} className="space-y-3">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
           <div className="md:flex justify-between gap-12">
             <FormField
               control={form.control}
@@ -74,7 +72,7 @@ function ContactUsForm() {
               render={({ field, fieldState: { error } }) => (
                 <FormItem>
                   <FormLabel className="text-[1.2rem]">
-                  E-mail
+                    E-mail
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -118,8 +116,8 @@ function ContactUsForm() {
                   />
                 </FormControl>
                 <FormDescription>
-                0/250 caracteres
-              </FormDescription>
+                  0/250 caracteres
+                </FormDescription>
               </FormItem>
             )}
           />

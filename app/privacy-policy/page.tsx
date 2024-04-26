@@ -1,6 +1,6 @@
-import { Custombreadcrumb } from '@/components/bread-crumb'
 import React from 'react'
 import { PrivacyPolicies, PrivacyPolicy } from '@/bin/privacy-policy'
+import { Custombreadcrumb } from '@/components/bread-crumb'
 
 function PrivacyPolicyPage() {
   return (

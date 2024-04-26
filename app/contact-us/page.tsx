@@ -1,10 +1,12 @@
+import React from "react";
+import Image from "next/image";
+
+import { CommonQuestions, CommonQuestion } from "@/bin/common-questions";
+
 import { Custombreadcrumb } from "@/components/bread-crumb";
 import ContactUsForm from "@/components/contact-us-form";
 import { Separator } from "@/components/ui/separator";
-import Image from "next/image";
-import React from "react";
 
-import { CommonQuestions, CommonQuestion } from "@/bin/common-questions";
 
 function ContactUsPage() {
   return (
@@ -33,9 +35,7 @@ function ContactUsPage() {
           />
         </div>
       </div>
-
       <Separator className=" my-12" />
-
       <div className=" flex flex-col justify-center text-center space-y-4">
         <div className=" font-semibold text-3xl mb-3">Perguntas frequentes</div>
         <div className=" text-xl text-[#514D4D]">

@@ -1,14 +1,14 @@
 "use client"
 
-import Image from 'next/image'
 import React, { useState } from 'react'
+import Image from 'next/image'
 import Link from "next/link";
+
 import { Separator } from './ui/separator';
 import { Icons } from './icons';
 
 function Footer() {
   const [isFooterVisible, setFooterVisible] = useState(true);
-
   const toggleFooter = () => {
     setFooterVisible(!isFooterVisible);
   };
@@ -18,8 +18,8 @@ function Footer() {
       <div className='lg:px-32 md:px-8 px-8 py-6 sm:flex justify-between'>
         <div className=' sm:hidden mb-8 flex justify-center gap-4'>
           <button className='flex' onClick={toggleFooter}>
-            {isFooterVisible ? 'Esconder rodapé' : 'Mostrar rodapé'} 
-            {isFooterVisible ? <Icons.ChevronDown />  : <Icons.ChevronUp /> }
+            {isFooterVisible ? 'Esconder rodapé' : 'Mostrar rodapé'}
+            {isFooterVisible ? <Icons.ChevronDown /> : <Icons.ChevronUp />}
           </button>
         </div>
         <div className={`space-y-4 ${isFooterVisible ? '' : 'hidden'}`}>
@@ -38,18 +38,15 @@ function Footer() {
           </div> <div>
             <Link href={'/terms-of-use'}>Termos de uso</Link>
           </div>
-
         </div>
         <div className={`md:mr-4 lg:mr-72 mt-10 sm:mt-0 space-y-5 ${isFooterVisible ? '' : 'hidden'}`}>
           <div className='text-xl font-semibold'>Siga a gente</div>
           <div className='flex space-x-4'>
-
             <Image src='/icons/logo/telegram.svg' alt='telegram' width={35} height={35} />
             <Image src='/icons/logo/whatsapp.svg' alt='whatsapp' width={35} height={35} />
             <Image src='/icons/logo/facebook.svg' alt='facebook' width={35} height={35} />
             <Image src='/icons/logo/instagram.svg' alt='instagram' width={35} height={35} />
           </div>
-
           <Image src='/images/google-safe-browsing.svg' alt='qr-code' width={190} height={190} />
         </div>
       </div>

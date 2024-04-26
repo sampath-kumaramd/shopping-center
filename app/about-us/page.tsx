@@ -1,5 +1,5 @@
-import { Custombreadcrumb } from "@/components/bread-crumb"
 import Image from "next/image"
+import { Custombreadcrumb } from "@/components/bread-crumb"
 
 function AboutUsPage() {
     const imageList = [
@@ -62,13 +62,11 @@ function AboutUsPage() {
                     No Eu Amo Desconto, acreditamos que economizar dinheiro não se trata apenas de pagar menos, mas sim de maximizar o valor de cada compra e proporcionar uma experiência satisfatória ao consumidor. Junte-se a nós hoje e comece a desfrutar das vantagens de economizar dinheiro enquanto aproveita uma experiência de compras online mais inteligente e gratificante.
                 </div>
             </div>
-
             <div className=" grid justify-center">
                 <div className="text-center mt-8  space-y-4">
                     <div className=" font-semibold">O QUE ACREDITAMOS</div>
                     <div className=" text-4xl font-medium" >A economia pode estar <br /> a um clique</div>
                 </div>
-
                 <div className=" sm:flex space-x-4 my-10">
                     <div className="md:w-[25vw] lg:w-[17vw] flex flex-col items-center p-4 text-center ">
                         <div><Image src="/images/about-us-mountains.png" alt="About Us" width={80} height={80} /></div>
@@ -87,7 +85,6 @@ function AboutUsPage() {
                     </div>
                 </div>
             </div>
-
         </div>
     )
 }

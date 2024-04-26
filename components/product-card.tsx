@@ -1,15 +1,18 @@
+// External libraries
 import React from 'react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
+// Internal modules
+import { ProductCardShowType } from '@/lib/enums/product-card-show'
+
+// Components
 import { Separator } from './ui/separator'
+import { Button } from './ui/button'
 import {
     Card,
     CardContent,
 } from "@/components/ui/card"
-
-import { ProductCardShowType } from '@/lib/enums/product-card-show'
-import { useRouter } from 'next/navigation'
-import { Button } from './ui/button'
 
 type Props = {
     id: number
@@ -73,7 +76,7 @@ function ProductCard({ id, categoryId, tag, image, title, discription, orginalPr
         default:
             imageWidth = 200;
             imageHeight = 200;
-            width = 'w-40'; // default width
+            width = 'w-40';
             display = 'flex';
             isShort = 'hidden';
     }
@@ -106,7 +109,7 @@ function ProductCard({ id, categoryId, tag, image, title, discription, orginalPr
 
     return (
         <>
-            <Card className={width + ' ' + className + ' group'}  onClick={() => router.replace(`/category/${categoryId}/product/${id}`)}>
+            <Card className={width + ' ' + className + ' group'} onClick={() => router.replace(`/category/${categoryId}/product/${id}`)}>
                 <CardContent className='my-4 p-0'>
                     <div className={display + ' relative '}>
                         <div className=' flex justify-center'>
@@ -121,7 +124,6 @@ function ProductCard({ id, categoryId, tag, image, title, discription, orginalPr
                                     )
                                 }
                             </button>
-
                         </div>
                         <Separator className={isShort + ' my-4  '} />
                         <div className={`${showtype === ProductCardShowType.large || showtype === ProductCardShowType.largeMobile ? '  px-4 w-full flex flex-col justify-between ' : 'px-4 w-full flex flex-col justify-between h-48  '}`}>
@@ -219,10 +221,8 @@ function ProductCard({ id, categoryId, tag, image, title, discription, orginalPr
                                                     </div>
                                                 </Button>
                                             </div>
-
                                         </div>
                                     </div>
-
                                 )}
                             </div>
                         </div>
@@ -235,7 +235,3 @@ function ProductCard({ id, categoryId, tag, image, title, discription, orginalPr
 
 export default ProductCard
 
-
-// sample card
-
-{/* <ProductCard tag="Destaques" subTitle="A1 Mini fones de ouvido sem fio Bluetooth" image="/images/product1.svg" title="Amazon" orginalPrice={92.44} discountPrice={76.13} likes={24} addedtime="2 min" showtype={ProductCardShowType.short} /> */ }

@@ -1,11 +1,11 @@
 import React from 'react'
+import Image from 'next/image'
 
 import {
     Card,
     CardContent,
 } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
-import Image from 'next/image'
 
 type Props = {
     className?: string
@@ -23,7 +23,6 @@ function CommentCard({
     return (
         <div className={className + ' '}>
             <div className=' flex space-x-4'>
-
                 <Avatar>
                     <AvatarImage src={userImage} />
                     <AvatarFallback>CN</AvatarFallback>
@@ -35,7 +34,6 @@ function CommentCard({
                     </CardContent>
                 </Card>
             </div>
-
             <div className='flex space-x-6 ml-16 mt-6'>
                 <div className=' flex space-x-2'>
                     <Image src="/icons/like-comment.svg" alt='ds' width={20} height={20} />
@@ -45,7 +43,6 @@ function CommentCard({
                     <Image src="/icons/reply-comment.svg" alt='ds' width={20} height={20} />
                     <div className='text-lg'>Responder </div>
                 </div>
-
             </div>
         </div>
     )

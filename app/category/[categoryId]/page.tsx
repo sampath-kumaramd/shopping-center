@@ -1,8 +1,15 @@
 "use client"
+
+import React, { useEffect, useState } from 'react'
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+
 import { Categories } from '@/bin/categories';
 import { CategoriesExtraDetails } from '@/bin/categories-extra-details';
 import { ButtonLabels } from '@/bin/filter-button-labels';
 import { Products } from '@/bin/products';
+import { ProductCardShowType } from '@/lib/enums/product-card-show';
+
 import { Custombreadcrumb } from '@/components/bread-crumb';
 import ProductCard from '@/components/product-card';
 import RangeSlider from '@/components/range-slider';
@@ -11,21 +18,20 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Separator } from '@/components/ui/separator';
-import { ProductCardShowType } from '@/lib/enums/product-card-show';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react'
 
 interface CategoryPageProps {
   params: { categoryId: string };
 }
+
 export default function CategoryPage({ params }: CategoryPageProps) {
+
+  const router = useRouter();
+
   let categoryId = params.categoryId;
   const category = Categories.find((category) => category.id === Number(categoryId));
   const [activeTag, setActiveTag] = useState<string>("Recentes");
   const [selectedTag, setSelectedTag] = useState<string>('');
   const [productView, setProductView] = useState<ProductCardShowType>(ProductCardShowType.short);
-
   const handleTagClick = (tag: string) => {
     setActiveTag(tag);
     if (tag !== "Recentes") {
@@ -34,11 +40,9 @@ export default function CategoryPage({ params }: CategoryPageProps) {
       setSelectedTag('');
     }
   }
-
   const handleProductView = (view: ProductCardShowType) => {
     setProductView(view);
   }
-
   const handleResize = () => {
     if (window.innerWidth <= 768) {
       setProductView(ProductCardShowType.long);
@@ -54,8 +58,6 @@ export default function CategoryPage({ params }: CategoryPageProps) {
       window.removeEventListener('resize', handleResize);
     }
   }, []);
-
-  const router = useRouter();
 
   return (
     <div className=' h-auto lg:mx-32 md:mx-16 mx-8 py-12'>
@@ -73,30 +75,24 @@ export default function CategoryPage({ params }: CategoryPageProps) {
           <h2 className="">{category?.title}</h2>
         </div>
       </div>
-
       <div>
         {category?.description}
       </div>
-
       <div className=' w-full  justify-between grid grid-cols-12 mt-16 gap-8'>
         <div className='hidden sm:block col-span-4 xl:col-span-3'>
           <div className=' -mt-8 text-2xl font-bold'>Filtros</div>
           <Card >
             <CardContent className='bg-[#FAFAFA]'>
-
               <div className=" font-bold text-xl pt-4">Itens</div>
               {ButtonLabels.map(label => (
                 <div key={label.id} className=' my-2'>
-                  <button  onClick={() => router.push(`/category/${label.id}`)}>
+                  <button onClick={() => router.push(`/category/${label.id}`)}>
                     {label.title}
                   </button>
                 </div>
               ))}
             </CardContent>
           </Card>
-
-
-
           <Card className='mt-8'>
             <CardContent className='bg-[#FAFAFA]'>
               <div className="flex flex-col">
@@ -146,10 +142,8 @@ export default function CategoryPage({ params }: CategoryPageProps) {
               </div>
             </CardContent>
           </Card>
-
           <SocialMediaGroups />
         </div>
-
         <div className=" col-span-11 sm:col-span-8 xl:col-span-9">
           <Card className="mb-8">
             <CardContent className="pb-0 flex justify-between">
@@ -189,7 +183,6 @@ export default function CategoryPage({ params }: CategoryPageProps) {
               </div>
             </CardContent>
           </Card>
-
           <div className={productView === ProductCardShowType.long ? " space-y-2" : "grid 2xl:grid-cols-4 xl:grid-cols-3  lg:grid-cols-2 md:grid-cols-2 grid-cols-1  gap-y-8 justify-around  justify-items-center"}>
             {Products
               .filter(product => selectedTag === '' || product.tag === selectedTag)
@@ -218,7 +211,6 @@ export default function CategoryPage({ params }: CategoryPageProps) {
               ADS
             </CardContent>
           </Card>
-
           <div className={productView === ProductCardShowType.long ? " space-y-2" : "grid 2xl:grid-cols-4 xl:grid-cols-3  lg:grid-cols-2 md:grid-cols-2 grid-cols-1  gap-y-8 justify-around  justify-items-center"}>
             {Products
               .filter(product => selectedTag === '' || product.tag === selectedTag)
@@ -260,15 +252,8 @@ export default function CategoryPage({ params }: CategoryPageProps) {
               <div>Não perca nossas ofertas limitadas e aproveite para atualizar seus gadgets favoritos sem gastar uma fortuna. Compre agora e embarque na jornada da tecnologia com economia e estilo.</div>
             </CardContent>
           </Card>
-
-
         </div>
       </div>
-
-
-
-
-
     </div >
   )
 }

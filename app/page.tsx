@@ -1,13 +1,18 @@
 "use client";
+
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { Separator } from "@radix-ui/react-separator";
+import Image from "next/image";
+import Autoplay from "embla-carousel-autoplay"
+
+import { Categories, Category } from "@/bin/categories";
+import { ProductCardShowType } from "@/lib/enums/product-card-show";
 import { Products } from "@/bin/products";
-import Filter from "@/components/filter";
+
 import ProductCard from "@/components/product-card";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ProductCardShowType } from "@/lib/enums/product-card-show";
-import Image from "next/image";
-import React, { use, useEffect, useState } from "react";
-import Autoplay from "embla-carousel-autoplay"
 import {
   Carousel,
   CarouselApi,
@@ -16,13 +21,13 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
-import { Categories, Category } from "@/bin/categories";
 import RangeSlider from "@/components/range-slider";
-import { Separator } from "@radix-ui/react-separator";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useRouter } from "next/navigation";
+
 
 export default function Home() {
+
+  const router = useRouter();
 
   const [activeTag, setActiveTag] = useState<string>("Recentes");
   const [productView, setProductView] = useState<ProductCardShowType>(ProductCardShowType.short);
@@ -31,20 +36,15 @@ export default function Home() {
   const [count, setCount] = React.useState(0)
   const [selectedTag, setSelectedTag] = useState<string>('');
 
-  const router = useRouter();
-
-
   React.useEffect(() => {
     if (!api) {
       return
     }
-
     setCount(api.scrollSnapList().length)
     setCurrent(api.selectedScrollSnap() + 1)
-
     api.on("select", () => {
       setCurrent(api.selectedScrollSnap() + 1)
-      console.log(api.selectedScrollSnap(), ' count')
+      // console.log(api.selectedScrollSnap(), ' count')
     })
   }, [api])
 
@@ -60,6 +60,7 @@ export default function Home() {
       setSelectedTag('');
     }
   }
+
   const handleResize = () => {
     if (window.innerWidth <= 768) {
       setProductView(ProductCardShowType.long);
@@ -199,7 +200,6 @@ export default function Home() {
               ADS
             </CardContent>
           </Card>
-
           <div className={productView === ProductCardShowType.long ? " space-y-2" : "grid 2xl:grid-cols-4 xl:grid-cols-3  lg:grid-cols-2 md:grid-cols-2 grid-cols-1  gap-y-8 justify-around  justify-items-center"}>
             {Products
               .filter(product => selectedTag === '' || product.tag === selectedTag)
@@ -223,7 +223,6 @@ export default function Home() {
                 />
               ))}
           </div>
-
         </div>
         <div className="hidden sm:block col-span-4 xl:col-span-3 space-y-8">
           <div className="flex flex-col">
@@ -303,9 +302,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-
-
-      {/* <div><SocialMediaGroups /></div> */}
     </div>
   );
 }

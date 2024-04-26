@@ -1,7 +1,8 @@
-import { TermsOfUse, TermsOfUses } from '@/bin/terms-of-use';
-import { Custombreadcrumb } from '@/components/bread-crumb'
 import React from 'react'
 
+import { TermsOfUse, TermsOfUses } from '@/bin/terms-of-use';
+
+import { Custombreadcrumb } from '@/components/bread-crumb'
 
 function TermsOfUsePage() {
   return (

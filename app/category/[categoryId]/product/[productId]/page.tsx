@@ -1,34 +1,30 @@
 "use client"
+
+import React, { useEffect, useState } from 'react'
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+
 import { Categories, Category } from '@/bin/categories';
-import { CategoriesExtraDetails } from '@/bin/categories-extra-details';
-import { ButtonLabels } from '@/bin/filter-button-labels';
 import { Products } from '@/bin/products';
+import { ProductCardShowType } from '@/lib/enums/product-card-show';
+
 import { Custombreadcrumb } from '@/components/bread-crumb';
 import ProductCard from '@/components/product-card';
-import RangeSlider from '@/components/range-slider';
 import SocialMediaGroups from '@/components/social-media-groups';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Checkbox } from '@/components/ui/checkbox';
 import { Separator } from '@/components/ui/separator';
-import { ProductCardShowType } from '@/lib/enums/product-card-show';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Input } from '@/components/ui/input';
 import CommentCard from '@/components/comment-card';
-
-
-
 interface CategoryPageProps {
   params: { categoryId: string, productId: string };
 }
+
 export default function CategoryPage({ params }: CategoryPageProps) {
   let categoryId = Number(params.categoryId);
   let productId = params.productId;
-
   let product = Products[0];
   let category = Categories.find(c => c.id === categoryId);
 
@@ -62,14 +58,11 @@ export default function CategoryPage({ params }: CategoryPageProps) {
     }
   }, []);
 
-
-
   const router = useRouter();
 
   return (
     <div className=' h-auto 2xl:mx-32 xl:mx-20 lg:mx-16 mx-4 py-12'>
       <Custombreadcrumb title_1='Categorias' title_2={category?.title} title_3={product.subTitle} href_2={`/category/${category?.id}`} href_1={`/category/${category?.id}`} href_3={`/category/${category?.id}/${product?.id}`} />
-
       <ProductCard
         id={product.id}
         categoryId={product.categoryId}
@@ -89,7 +82,6 @@ export default function CategoryPage({ params }: CategoryPageProps) {
       />
       <div className=' w-full  justify-between sm:grid sm:grid-cols-12 mt-8 gap-16'>
         <div className='sm:col-span-8 xl:col-span-9 space-y-8'>
-
           <Card>
             <CardContent className=' p-4'>
               <Tabs defaultValue="A promoção" className="w-full">
@@ -110,17 +102,13 @@ export default function CategoryPage({ params }: CategoryPageProps) {
                 <TabsContent value="Informação do Produto">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Metus dictum at tempor commodo ullamcorper a lacus vestibulum sed. Porta non pulvinar neque laoreet suspendisse interdum consectetur. Vel fringilla est ullamcorper eget. Posuere morbi leo urna molestie at elementum eu facilisis sed. Sapien et ligula ullamcorper malesuada proin libero nunc consequat. Ipsum consequat nisl vel pretium lectus quam id leo. Semper risus in hendrerit gravida rutrum. Quam adipiscing vitae proin sagittis. Tempor commodo ullamcorper a lacus vestibulum. Integer vitae justo eget magna. Ac turpis egestas maecenas pharetra convallis posuere morbi leo.
                   Egestas sed sed risus pretium quam vulputate. Lorem sed risus ultricies tristique nulla aliquet enim tortor at. Ipsum dolor sit amet consectetur adipiscing elit ut aliquam. Vulputate mi sit amet mauris commodo quis imperdiet. </TabsContent>
               </Tabs>
-
             </CardContent>
           </Card>
-
-
           <Card>
             <CardContent className="rounded-xl p-5  space-y-6">
               <div className='flex space-x-4'>
                 <Image src="/icons/tag/chat-circle.svg" alt='ds' width={20} height={20} /> <div className=' font-bold text-xl'>Comentários ({product.comment.length}) </div>
               </div>
-
               <div className=' flex space-x-4'>
                 <Avatar>
                   <AvatarImage src="https://github.com/shadcn.png" />
@@ -132,7 +120,6 @@ export default function CategoryPage({ params }: CategoryPageProps) {
                 </div>
               </div>
               <Separator />
-
               <div>Todos os comentários</div>
               {product.comment.map((comment) => (
                 <CommentCard
@@ -148,10 +135,8 @@ export default function CategoryPage({ params }: CategoryPageProps) {
                 userImage='https://github.com/shadcn.png'
                 comment='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
               />
-
             </CardContent>
           </Card>
-
           <div className=' font-bold text-2xl'>
             Produtos semelhantes pra você
           </div>
@@ -178,7 +163,6 @@ export default function CategoryPage({ params }: CategoryPageProps) {
               ))}
           </div>
         </div>
-
         <div className='mt-10 sm:mt-0 sm:block sm:col-span-4 xl:col-span-3 space-y-8'>
           <Card>
             <CardContent className="border-dashed  border-2 items-center flex justify-center h-52 p-0">
@@ -188,7 +172,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
           <div className="hidden sm:flex flex-col">
             <div className="text-2xl font-bold">Categorias</div>
             <div className="flex flex-col bg-[#FAFAFA] rounded-lg p-8 my-4 gap-5">
-            {Categories.map((category: Category) => {
+              {Categories.map((category: Category) => {
                 const CategoryComponent = () => (
                   <button key={category.id} className="flex gap-3 group" onClick={() => router.push(`/category/${category.id}`)}>
                     <div className="w-9 h-9 bg-[#E7E7E7] group-hover:bg-red-500 rounded-full flex items-center justify-center">
@@ -210,7 +194,6 @@ export default function CategoryPage({ params }: CategoryPageProps) {
             </div>
           </div>
           <SocialMediaGroups />
-
           <Card className=' hidden sm:block'>
             <CardContent className="items-center bg-primary rounded-xl  flex flex-col justify-center h-44 p-0 text-white space-y-4">
               <div>
@@ -223,15 +206,8 @@ export default function CategoryPage({ params }: CategoryPageProps) {
               </Button></div>
             </CardContent>
           </Card>
-
         </div>
-
       </div>
-
-
-
-
-
     </div >
   )
 }

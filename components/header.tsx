@@ -1,45 +1,36 @@
 "use client"
 
+import { useState } from "react"
 import Image from "next/image"
+import { Search } from "lucide-react"
+import { useRouter } from "next/navigation"
+
+import { ButtonLabels } from "@/bin/filter-button-labels"
+import { Categories, Category } from "@/bin/categories"
+
 import { Icons } from "./icons"
 import { Input } from "./ui/input"
-import { useForm } from "react-hook-form"
 import { Button } from "./ui/button"
-import { Search } from "lucide-react"
-import { useEffect, useState } from "react"
+import RangeSlider from "./range-slider"
+import { Separator } from "./ui/separator"
+import { Checkbox } from "./ui/checkbox"
 import {
     Dialog,
-    DialogClose,
     DialogContent,
     DialogDescription,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import Filter from "./filter"
-import RangeSlider from "./range-slider"
-import { Separator } from "./ui/separator"
-import { Checkbox } from "./ui/checkbox"
-import { Categories, Category } from "@/bin/categories"
-import { ButtonLabels } from "@/bin/filter-button-labels"
-import { useRouter } from "next/navigation"
-
-
 
 function Header() {
     const router = useRouter();
-    const form = useForm()
-
     const [isSearchVisible, setSearchVisible] = useState(false)
     const [isDialogOpen, setIsDialogOpen] = useState(true);
-
     const handleCategoryClick = (categoryId: number) => {
-        // Close the dialog by setting isDialogOpen to false
         setIsDialogOpen(false);
-        // Navigate to the category page
         router.push(`/category/${categoryId}`);
     };
-
 
     const toggleSearch = () => {
         setSearchVisible(!isSearchVisible)
@@ -49,9 +40,6 @@ function Header() {
         setIsDialogOpen(true);
     }
 
- 
-    
-   
     return (
         <div className="sticky top-0 z-50">
             <div className="bg-primary h-24 flex items-center">
@@ -190,7 +178,6 @@ function Header() {
                                 )}
                             </Dialog>
                         </div>
-
                     </div>
                     <div className=" hidden sm:flex bg-white rounded-full w-5/12 md:w-3/12 p-1 items-center justify-between mx-2">
                         <Input placeholder="O que está procurando?" className="w-10/12 border-gray-200 rounded-full" />
