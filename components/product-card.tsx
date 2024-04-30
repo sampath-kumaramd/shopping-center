@@ -29,9 +29,12 @@ type Props = {
     tag?: string
     comments: number
     className?: string
+    isLoading?: boolean
+    setIsLoading?: (isLoading: boolean) => void
+    setProgress?: (progress: number) => void
 }
 
-function ProductCard({ id, categoryId, tag, image, title, discription, orginalPrice, discountPrice, likes, addedtime, showtype, subTitle, comments, className }: Props) {
+function ProductCard({ id, categoryId, tag, image, title, discription, orginalPrice, discountPrice, likes, addedtime, showtype, subTitle, isLoading, setIsLoading, setProgress, comments, className }: Props) {
     let width;
     let display;
     let isShort;
@@ -106,6 +109,35 @@ function ProductCard({ id, categoryId, tag, image, title, discription, orginalPr
     }
 
     const router = useRouter();
+    // const [isLoading , setIsLoading] = React.useState(false)
+
+    // const handleClick = async (isLoading : boolean) => {
+    //     if (setIsLoading){
+    //         setIsLoading(isLoading)
+    //         setTimeout(() => {
+    //             setIsLoading(false);
+    //         }, 3000);
+    //     }
+    // }
+
+    const handleClick = async (isLoading: boolean) => {
+        if (setIsLoading && setProgress) {
+          setIsLoading(isLoading)
+      
+          // Start the progress bar
+          setProgress(0)
+          const _timer = setTimeout(() => setProgress(50), 2000);
+          const timer = setTimeout(() => setProgress(100), 2000);
+      
+          // Stop the progress bar and reset isLoading after 5 seconds
+          setTimeout(() => {
+            setIsLoading(false);
+            clearTimeout(timer);
+            clearTimeout(_timer);
+            setProgress(0);
+          }, 6000);
+        }
+      }
 
     return (
         <>
@@ -137,7 +169,7 @@ function ProductCard({ id, categoryId, tag, image, title, discription, orginalPr
                                         <div className=' text-green-600 text-2xl font-semibold'>R$ {discountPrice}</div>
                                     </div>
                                     <div className={`${showtype === ProductCardShowType.large ? ' flex space-x-4 text-white ' : ' hidden '}`} >
-                                        <Button className=' rounded-full flex space-x-2 px-6'>
+                                        <Button className=' rounded-full flex space-x-2 px-6' onClick={() => handleClick(true)} >
                                             <div>Ir para a loja</div>
                                             <Image src="/icons/arrow-out.svg" alt={title} width={20} height={20} />
                                         </Button>

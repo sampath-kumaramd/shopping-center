@@ -18,6 +18,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Input } from '@/components/ui/input';
 import CommentCard from '@/components/comment-card';
+import { set } from 'zod';
+import { Progress } from '@/components/ui/progress';
 interface CategoryPageProps {
   params: { categoryId: string, productId: string };
 }
@@ -28,8 +30,11 @@ export default function CategoryPage({ params }: CategoryPageProps) {
   let product = Products[0];
   let category = Categories.find(c => c.id === categoryId);
 
+  const router = useRouter();
   const [productCount, setProductCount] = useState<number>(0);
   const [productView, setProductView] = useState<ProductCardShowType>(ProductCardShowType.large);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [progress, setProgress] = React.useState<number>(0)
 
   const handleResize = () => {
     if (window.innerWidth <= 768) {
@@ -58,7 +63,18 @@ export default function CategoryPage({ params }: CategoryPageProps) {
     }
   }, []);
 
-  const router = useRouter();
+ const handleClick = async (isLoading: boolean) => {
+  if (setIsLoading) {
+    setIsLoading(isLoading)
+    setProgress(0)
+    const timer = setTimeout(() => setProgress(100), 4000);
+    setTimeout(() => {
+      setIsLoading(false);
+      clearTimeout(timer);
+      setProgress(0);
+    }, 6000);
+  }
+}
 
   return (
     <div className=' h-auto 2xl:mx-32 xl:mx-20 lg:mx-16 mx-4 py-12'>
@@ -78,8 +94,27 @@ export default function CategoryPage({ params }: CategoryPageProps) {
         addedtime={product.addedTime}
         comments={product.comment.length}
         showtype={productView}
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
+        setProgress={setProgress}
         className=' my-8'
       />
+
+      {
+        isLoading && (
+          <div className=' w-full h-full fixed top-0 left-0 bg-white bg-opacity-90 z-50 flex items-center justify-center'>
+            <div className=' flex flex-col items-center space-y-4'>
+              <Card className=' flex justify-center items-center'>
+                <CardContent className=' h-40 w-full sm:w-96 items-center flex flex-col justify-center align-middle space-y-4'>
+                  <Progress value={progress} className="w-[60%] bg-gray-200" />
+                  <div>Levando você direto pra oferta em 3...2...1</div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        )
+      }
+
       <div className=' w-full  justify-between sm:grid sm:grid-cols-12 mt-8 gap-16'>
         <div className='sm:col-span-8 xl:col-span-9 space-y-8'>
           <Card>
@@ -158,6 +193,9 @@ export default function CategoryPage({ params }: CategoryPageProps) {
                   likes={product.likes}
                   addedtime={product.addedTime}
                   comments={product.comment.length}
+                  isLoading={isLoading}
+                  setIsLoading={setIsLoading}
+                  setProgress={setProgress}
                   showtype={ProductCardShowType.mini}
                 />
               ))}
@@ -200,7 +238,9 @@ export default function CategoryPage({ params }: CategoryPageProps) {
                 <div className=' text-gray-300 text-center'>R$ {product.originalPrice}</div>
                 <div className=' text-white text-4xl font-semibold'>R$ {product.discountPrice}</div>
               </div>
-              <div><Button className=' rounded-full flex space-x-2 px-16 bg-white hover:bg-white text-primary'>
+              <div><Button className=' rounded-full flex space-x-2 px-16 bg-white hover:bg-white text-primary'
+                onClick={() => handleClick(true)}
+              >
                 <div>Ir para a loja</div>
                 <Image src="/icons/arrow-out-red.svg" alt='icon' width={20} height={20} />
               </Button></div>
