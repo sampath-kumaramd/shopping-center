@@ -1,13 +1,11 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Image from "next/image"
 import { Search } from "lucide-react"
 import { useRouter } from "next/navigation"
-
 import { ButtonLabels } from "@/bin/filter-button-labels"
 import { Categories, Category } from "@/bin/categories"
-
 import { Icons } from "./icons"
 import { Input } from "./ui/input"
 import { Button } from "./ui/button"
@@ -22,23 +20,69 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
+import { Card, CardContent } from "./ui/card"
+import { ElectronicItems, Item } from "@/bin/item"
 
 function Header() {
     const router = useRouter();
     const [isSearchVisible, setSearchVisible] = useState(false)
     const [isDialogOpen, setIsDialogOpen] = useState(true);
+    const [isSearchDialogOpen, setSearchDialogOpen] = useState(false);
+    const [isSearching, setIsSearching] = useState(false);
+    const [searchValue, setSearchValue] = useState('')
+    const [searchResults, setSearchResults] = useState<Item[]>([]);
     const handleCategoryClick = (categoryId: number) => {
         setIsDialogOpen(false);
         router.push(`/category/${categoryId}`);
     };
 
     const toggleSearch = () => {
+        setSearchDialogOpen(!isSearchDialogOpen)
         setSearchVisible(!isSearchVisible)
     }
 
     const toggleIsDialogOpen = () => {
         setIsDialogOpen(true);
     }
+
+    const mostSearched = [
+        { id: 1, title: 'Celulares' },
+        { id: 2, title: 'Notebooks' },
+        { id: 3, title: 'Geladeiras' },
+    ]
+
+    const handleSearchChange = (e: any) => {
+        setSearchValue(e.target.value)
+        let item = filterItems(e.target.value)
+        setSearchResults(item)
+        console.log(e.target.value)
+        setIsSearching(true)
+    }
+
+    const sampleSearch = [
+        { id: 1, title: 'AC' },
+        { id: 2, title: 'TV' },
+        { id: 3, title: 'Celular' },
+        { id: 4, title: 'Notebook' },
+    ]
+
+    const filterItems = (searchValue: string) => {
+        return ElectronicItems.filter((item) => item.title.toLowerCase().includes(searchValue))
+    }
+
+    const handleResize = () => {
+        if (window.innerWidth > 640) { 
+            setSearchDialogOpen(false);
+        }
+    };
+    
+    useEffect(() => {
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
 
     return (
         <div className="sticky top-0 z-50">
@@ -53,11 +97,46 @@ function Header() {
                             <button onClick={toggleSearch}>
                                 <Search color="#ffffff" width={40} className={`sm:hidden  ${isSearchVisible ? 'hidden' : ''}`} />
                             </button>
+                            {isSearchDialogOpen && (
+                                <div tabIndex={-1} onBlur={() => setSearchDialogOpen(false)}>
+                                    <Card className=" absolute z-10 top-20  w-80  h-auto"  >
+                                        <CardContent>
+                                            {!isSearching && (
+                                                <>
+                                                    <div className=" font-bold text-xl my-3 ">Mais buscados</div>
+                                                    <div className="flex flex-col gap-2">
+                                                        {mostSearched.map((item) => (
+                                                            <button key={item.id} className="text-left" onClick={() => router.push(`/search/${item.title}`)}>{item.title}</button>
+                                                        ))}
+                                                    </div>
+                                                </>)}
+                                            {isSearching && (<>
+                                                {searchResults.length > 0 && (
+                                                    <div>
+                                                        <div className="font-bold text-xl my-3  mt-4">Você está buscando...</div>
+                                                        {searchResults.map((item) => (
+                                                            <div key={item.id} >
+                                                                <button className="text-left" onClick={() => router.push(`/search/${item.title}`)}>{item.title}</button>
+                                                            </div>
+                                                        ))}
+
+                                                    </div>
+                                                )}
+
+                                                <div className=" font-bold text-xl my-3 ">Mais buscados</div>
+                                                {sampleSearch.map((item) => (
+                                                    <div key={item.id} >
+                                                        <button className="text-left" onClick={() => router.push(`/search/${item.title}`)}>{item.title}</button>
+                                                    </div>
+                                                ))}
+                                            </>)}
+                                        </CardContent>
+                                    </Card></div>
+                            )}
                             <button onClick={toggleSearch}>
                                 <Icons.chevronLeft color="#ffffff" width={40} className={`sm:hidden  ${isSearchVisible ? '' : 'hidden'}`} />
                             </button>
-                            <Input placeholder="O que está procurando?" className={`w-full border-gray-200 rounded-full sm:hidden ${isSearchVisible ? '' : 'hidden'}`} />
-
+                            <Input placeholder="O que está procurando?" className={`w-full border-gray-200 rounded-full sm:hidden ${isSearchVisible ? '' : 'hidden'}`} onChange={handleSearchChange} />
                             <Dialog>
                                 <DialogTrigger className={`sm:block block text-white focus:border-none ${isSearchVisible ? 'hidden' : ''}`} onClick={toggleIsDialogOpen}>
                                     <div className="flex gap-2">Categorias <Icons.ChevronDown /></div>
