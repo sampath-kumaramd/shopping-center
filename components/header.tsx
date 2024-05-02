@@ -37,7 +37,7 @@ function Header() {
     };
 
     const toggleSearch = () => {
-        setSearchDialogOpen(!isSearchDialogOpen)
+        setSearchDialogOpen(true)
         setSearchVisible(!isSearchVisible)
     }
 
@@ -70,18 +70,18 @@ function Header() {
         return ElectronicItems.filter((item) => item.title.toLowerCase().includes(searchValue))
     }
 
-    const handleResize = () => {
-        if (window.innerWidth > 640) { 
-            setSearchDialogOpen(false);
-        }
-    };
-    
-    useEffect(() => {
-        window.addEventListener('resize', handleResize);
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
+    // const handleResize = () => {
+    //     if (window.innerWidth < 640) { 
+    //         setSearchDialogOpen(true);
+    //     }
+    // };
+
+    // useEffect(() => {
+    //     window.addEventListener('resize', handleResize);
+    //     return () => {
+    //         window.removeEventListener('resize', handleResize);
+    //     };
+    // }, []);
 
 
     return (
@@ -99,14 +99,20 @@ function Header() {
                             </button>
                             {isSearchDialogOpen && (
                                 <div tabIndex={-1} onBlur={() => setSearchDialogOpen(false)}>
-                                    <Card className=" absolute z-10 top-20  w-80  h-auto"  >
+                                    <Card className="absolute z-10 top-20 sm:w-96 w-80 h-auto left-1/2 transform -translate-x-1/2">
+                                        <button
+                                            className="absolute top-0 right-0 m-2"
+                                            onClick={() => setSearchDialogOpen(false)}
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-x"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+                                        </button>
                                         <CardContent>
                                             {!isSearching && (
                                                 <>
                                                     <div className=" font-bold text-xl my-3 ">Mais buscados</div>
                                                     <div className="flex flex-col gap-2">
                                                         {mostSearched.map((item) => (
-                                                            <button key={item.id} className="text-left" onClick={() => router.push(`/search/${item.title}`)}>{item.title}</button>
+                                                            <button key={item.id} className="text-left flex gap-4 items-center" onClick={() => router.push(`/search/${item.title}`)}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-search"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg> {item.title}</button>
                                                         ))}
                                                     </div>
                                                 </>)}
@@ -116,7 +122,7 @@ function Header() {
                                                         <div className="font-bold text-xl my-3  mt-4">Você está buscando...</div>
                                                         {searchResults.map((item) => (
                                                             <div key={item.id} >
-                                                                <button className="text-left" onClick={() => router.push(`/search/${item.title}`)}>{item.title}</button>
+                                                                <button className="text-left flex gap-4 items-center" onClick={() => router.push(`/search/${item.title}`)}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-search"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg> {item.title}</button>
                                                             </div>
                                                         ))}
 
@@ -126,7 +132,7 @@ function Header() {
                                                 <div className=" font-bold text-xl my-3 ">Mais buscados</div>
                                                 {sampleSearch.map((item) => (
                                                     <div key={item.id} >
-                                                        <button className="text-left" onClick={() => router.push(`/search/${item.title}`)}>{item.title}</button>
+                                                        <button className="text-left flex gap-4 items-center" onClick={() => router.push(`/search/${item.title}`)}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-search"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg> {item.title}</button>
                                                     </div>
                                                 ))}
                                             </>)}
@@ -258,10 +264,13 @@ function Header() {
                             </Dialog>
                         </div>
                     </div>
-                    <div className=" hidden sm:flex bg-white rounded-full w-5/12 md:w-3/12 p-1 items-center justify-between mx-2">
-                        <Input placeholder="O que está procurando?" className="w-10/12 border-gray-200 rounded-full" />
+                    <button
+                        className="hidden sm:flex bg-white rounded-full w-5/12 md:w-3/12 p-1 items-center justify-between mx-2"
+                        onClick={() => setSearchDialogOpen(true)}
+                    >
+                        <Input placeholder="O que está procurando?" className="w-10/12 border-gray-200 rounded-full" onChange={handleSearchChange} />
                         <Search width={40} color="#514d4d" />
-                    </div>
+                    </button>
                     <div className=" gap-4 hidden md:flex">
                         <Button className="flex gap-2 bg-[#d26841] hover:bg-[#a5423b] rounded-3xl border-white border-2">
                             <Image src='/icons/telegram.png' alt='logo' width={30} height={30} />
